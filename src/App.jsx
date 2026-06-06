@@ -13,30 +13,27 @@ function App() {
   const heroRef = useRef(null);
   const cursorRef = useRef(null);
 
-  // Initialize Dark Mode
+  // Sync theme with system preference
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.theme;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const applyTheme = (e) => {
+      const isDarkMode = e.matches;
+      setIsDark(isDarkMode);
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    };
 
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-      setIsDark(true);
-    }
-  };
+    // Apply initially
+    applyTheme(mediaQuery);
+
+    // Listen for changes
+    mediaQuery.addEventListener('change', applyTheme);
+    return () => mediaQuery.removeEventListener('change', applyTheme);
+  }, []);
 
   // Advanced Loader Simulation
   useEffect(() => {
@@ -182,9 +179,6 @@ function App() {
             <a className="font-label-caps text-label-caps text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#experience">Experience</a>
           </div>
           <div className="flex gap-4 items-center">
-            <button onClick={toggleTheme} className="text-gray-900 dark:text-primary-fixed hover:backdrop-brightness-125 transition-all duration-300 active:scale-95" id="theme-toggle">
-              <span className="material-symbols-outlined">{isDark ? 'light_mode' : 'dark_mode'}</span>
-            </button>
             <button className="bg-primary-container text-on-primary-fixed px-6 py-2 rounded font-label-caps text-label-caps hover:shadow-[0_0_15px_rgba(34,255,68,0.3)] transition-all flex items-center gap-2">
               <span className="material-symbols-outlined">local_activity</span> BUY TICKETS
             </button>
