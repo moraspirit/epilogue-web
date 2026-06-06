@@ -187,11 +187,11 @@ function App() {
       </nav>
 
       {/* Cinematic Hero */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden" id="hero-section" style={{ backgroundImage: "linear-gradient(to bottom, rgba(12, 15, 15, 0.4), rgba(12, 15, 15, 0.8)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDg5RVf7xiJnNIEIYa99jAgfMOqS7QaD3_tba_T9X7o4rPtNBpC2X6Ct1EJBNSQJb56-jFBRQF4y5xoQBd5qPDGBqMm21-974G4dw3SI5bgnhkdr0dKRdhDqq2xi134fSQRceybJJK9aGeoBgDfHxdECm5V5WgW3P5MfR1T2_P-fxVAf5pb4Ei3hlG6YuihmbX528lqua9cCmTlpylnQHy_ZvvWKROF3vvJh9aoFPTtP9CAvMMCTmGY15Ur9UkP1kRl7NWZ7gpmBDo')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden" id="hero-section" style={{ backgroundImage: `${isDark ? "linear-gradient(to bottom, rgba(12, 15, 15, 0.4), rgba(12, 15, 15, 0.8))" : "linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(249, 250, 251, 0.9))"}, url('https://lh3.googleusercontent.com/aida-public/AB6AXuDg5RVf7xiJnNIEIYa99jAgfMOqS7QaD3_tba_T9X7o4rPtNBpC2X6Ct1EJBNSQJb56-jFBRQF4y5xoQBd5qPDGBqMm21-974G4dw3SI5bgnhkdr0dKRdhDqq2xi134fSQRceybJJK9aGeoBgDfHxdECm5V5WgW3P5MfR1T2_P-fxVAf5pb4Ei3hlG6YuihmbX528lqua9cCmTlpylnQHy_ZvvWKROF3vvJh9aoFPTtP9CAvMMCTmGY15Ur9UkP1kRl7NWZ7gpmBDo')`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
         <div ref={cursorRef} id="cursor-glow"></div>
         <div className="relative z-10 text-center px-gutter max-w-container-max mx-auto flex flex-col items-center reveal">
-          <p className="font-label-caps text-label-caps text-green-400 mb-4 tracking-widest uppercase">The Ultimate Frequency</p>
-          <h1 className="font-display-lg text-display-lg text-white mb-8 neon-glow leading-none floating-brand">EPILOGUE '26</h1>
+          <p className="font-label-caps text-label-caps text-green-700 dark:text-green-400 mb-4 tracking-widest uppercase">The Ultimate Frequency</p>
+          <h1 className="font-display-lg text-display-lg text-gray-900 dark:text-white mb-8 neon-glow leading-none floating-brand">EPILOGUE '26</h1>
           {/* Countdown */}
           <div className="flex gap-6 mt-12 glass-panel p-8 rounded-xl border border-outline-variant/30">
             <div className="flex flex-col items-center">
@@ -255,9 +255,9 @@ function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative group overflow-hidden rounded-2xl glass-panel border-glow transition-all duration-500 shadow-2xl">
               <img alt="Daddy Band Portrait" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVUnAhuq79ICi8Jn4oNQYCq_kGskta-6DEQPoFCzbJ6y-vQti4JfeNkFqL2nz-hfQe3gA3ejuKsvbqTN_7xvaRVCUU2fIvaEQLWJhlKPsoeL36njcboiUoHyZFHnpg6dqzMILsx8OqrewJisNIwNGH4QXCTCdFEV3OsCRpRqeOw4vzJ_F499dGms2k2TvNqzniPFgzULOUcKwu3wAzfcPULYnEKEjyO-ZM4Q-ejmRbDe_t4gELVhzAnWPVHH_ia2vBZSKEbYJ12As"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0f0f] via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#0c0f0f] via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
-                <h3 className="font-headline-lg text-headline-lg text-white">DADDY</h3>
+                <h3 className="font-headline-lg text-headline-lg text-gray-900 dark:text-white">DADDY</h3>
                 <span className="bg-primary-container text-on-primary-fixed px-3 py-1 rounded-full font-label-caps text-label-caps">MAIN STAGE</span>
               </div>
             </div>
@@ -298,15 +298,15 @@ function App() {
             {/* Masonry Item 1 */}
             <div className="break-inside-avoid relative group rounded-xl overflow-hidden glass-panel">
               <img alt="Concert Crowd" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 hover:scale-105 transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbnafG6QeEo-mzPiueYWxVKdADCuX0tegLImx1WI1RW0cnk7knFeBqEz9zTKgkmdFdDSOwDB7CwCwPhu6gIWwNsOOE2mt_1bYnUIVUh4dqHYTUBYrJAKvm-0WKuR8p4S80HEfK_2R_C9i8KiXlqDWXwzlwhwM7XaJgQ7WB5WM7HXlRK-eSa85tgFp3MwQqw6Pirm9Uz-03j0M8t2gdZGatJEvkx3H9naWSvr1suE0yeKr4f6T_zWn8V-HS8vmKDiEEsqLMjnQwDXM"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0f0f]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="font-label-caps text-label-caps text-primary-container">ATMOSPHERE</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-50/90 dark:from-[#0c0f0f]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <p className="font-label-caps text-label-caps text-green-700 dark:text-primary-container">ATMOSPHERE</p>
               </div>
             </div>
             {/* Masonry Item 2 */}
             <div className="break-inside-avoid relative group rounded-xl overflow-hidden glass-panel">
               <img alt="Abstract Soundwaves" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 hover:scale-105 transform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJjAdENUuljdL8Bf3pb6-hnrpLSV6gOUTRXPGi_1-jUCgBWXMA10rN4PW_Cn7G_tztDKbky8GqGek5DBk4wYqjGLzb4pF8eyjOGgPibA1gfcpJ4tyHx3kpkg1QFMchIUgJE_qMasDI7X1zjmUvdIjSDiFnrdF_RUj13HZ430xVeWIbzc1M_e67DZO-UR8-VYB_jF6CdONQsDN5zmKT_F5DK23VQue6y5AWJxLKnxC9RA3CKE6Zxm1LIw0dx7-LxxbYZzEPwKKH_vA"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c0f0f]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="font-label-caps text-label-caps text-primary-container">VISUALS</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-50/90 dark:from-[#0c0f0f]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <p className="font-label-caps text-label-caps text-green-700 dark:text-primary-container">VISUALS</p>
               </div>
             </div>
             {/* Text Block */}
