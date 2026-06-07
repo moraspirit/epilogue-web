@@ -22,3 +22,25 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# 3D models and scratch files
+public/models/
+*.glb
+*.zip
+check_glb_bounds.py
+inspect_nodes.py
+test_gltf.*
+remove_background.py
+scratch/
+stitch_import/
+56a034a2-116d-11ee-ade5-efd77f21c859.json
+e3be30c2-1150-11ee-9de2-dfa41e0fb27e.json
+
+# Unused large band images
+public/band/daddy_2.jpg
+public/band/daddy_3.jpg
+public/band/daddy_4.jpg
+public/band/daddy_5.jpg
+public/band/daddy_6.jpg
+
+
