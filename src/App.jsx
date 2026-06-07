@@ -61,6 +61,10 @@ function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [isDarkMode, setIsDarkMode] = useState(document.documentElement.classList.contains('dark'));
   const [showToast, setShowToast] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const handleBuyTicketsClick = useCallback(() => {
     setShowToast(true);
@@ -83,6 +87,19 @@ function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Prevent scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Avoid resetting overflow if lightbox is open
+      const isLightboxActive = document.querySelector('.fixed.inset-0.z-\\[100000\\]');
+      if (!isLightboxActive) {
+        document.body.style.overflow = 'auto';
+      }
+    }
+  }, [isMobileMenuOpen]);
 
   const [days, setDays] = useState('00');
   const [hours, setHours] = useState('00');
@@ -152,6 +169,25 @@ function App() {
     if (e) e.stopPropagation();
     setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
   }, [galleryImages.length]);
+
+  // Lightbox Touch Gestures for Mobile Swipe
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchMove = useCallback((e) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const diffX = touchStartX.current - touchEndX.current;
+    if (diffX > 60) {
+      nextImage();
+    } else if (diffX < -60) {
+      prevImage();
+    }
+  }, [nextImage, prevImage]);
 
   // Lightbox Keyboard Navigation
   useEffect(() => {
@@ -363,7 +399,7 @@ function App() {
                 {"EPILOGUE '26".split("").map((char, idx) => (
                   <span
                     key={idx}
-                    className="text-3xl font-extrabold text-white font-sans select-none"
+                    className="text-2xl sm:text-3xl font-extrabold text-white font-sans select-none"
                     style={{
                       display: 'inline-block',
                       animation: 'bounce-3d 1.5s ease-in-out infinite alternate',
@@ -389,8 +425,8 @@ function App() {
 
       {/* ──── TOP NAVIGATION ──── */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`}>
-        <div className="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
-          <div className="font-headline-md text-headline-md tracking-tighter text-gray-900 dark:text-primary-fixed cursor-pointer floating-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <div className="flex justify-between items-center px-4 md:px-gutter py-4 max-w-container-max mx-auto">
+          <div className="font-headline-md text-2xl md:text-headline-md tracking-tighter text-gray-900 dark:text-primary-fixed cursor-pointer floating-brand" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }}>
             EPILOGUE '26
           </div>
           <div className="hidden md:flex gap-8 items-center">
@@ -399,23 +435,79 @@ function App() {
             <a className="font-label-caps text-label-caps text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#experience">Experience</a>
             <a className="font-label-caps text-label-caps text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#organizer">About Us</a>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-3 items-center">
             <button 
               onClick={handleBuyTicketsClick}
-              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-6 py-2 rounded font-label-caps text-label-caps hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-3 sm:px-6 py-2 rounded font-label-caps text-[10px] sm:text-label-caps hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center gap-1.5 sm:gap-2"
             >
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg> BUY TICKETS
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg> BUY TICKETS
+            </button>
+            
+            {/* Hamburger Button for Mobile */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden flex items-center justify-center p-2 rounded-xl bg-gray-100/10 dark:bg-white/5 border border-gray-200/10 dark:border-white/10 text-gray-900 dark:text-white hover:bg-gray-100/20 dark:hover:bg-white/10 transition-colors"
+              aria-label="Toggle Menu"
+            >
+              <span className="material-symbols-outlined text-2xl">
+                {isMobileMenuOpen ? 'close' : 'menu'}
+              </span>
             </button>
           </div>
         </div>
       </nav>
 
+      {/* Mobile Drawer Navigation */}
+      <div className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-md transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
+        <div className={`fixed right-0 top-0 bottom-0 w-[280px] bg-white/95 dark:bg-surface-container-lowest/95 backdrop-blur-2xl shadow-2xl p-6 flex flex-col pt-8 gap-6 border-l border-gray-200/50 dark:border-white/10 transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
+          {/* Drawer Title & Close Button */}
+          <div className="flex justify-between items-center mb-2 border-b border-gray-200/30 dark:border-white/5 pb-4">
+            <span className="font-headline-md text-lg text-gray-900 dark:text-primary-fixed">MENU</span>
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-xl bg-gray-100/10 dark:bg-white/5 border border-gray-200/10 dark:border-white/10 text-gray-900 dark:text-white"
+              aria-label="Close Menu"
+            >
+              <span className="material-symbols-outlined text-xl">close</span>
+            </button>
+          </div>
+          <a 
+            className="font-label-caps text-base text-gray-800 dark:text-secondary-fixed hover:text-green-700 dark:hover:text-primary-container transition-colors py-2 border-b border-gray-200/30 dark:border-white/5" 
+            href="#lineup"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Lineup
+          </a>
+          <a 
+            className="font-label-caps text-base text-gray-800 dark:text-secondary-fixed hover:text-green-700 dark:hover:text-primary-container transition-colors py-2 border-b border-gray-200/30 dark:border-white/5" 
+            href="#gallery"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Gallery
+          </a>
+          <a 
+            className="font-label-caps text-base text-gray-800 dark:text-secondary-fixed hover:text-green-700 dark:hover:text-primary-container transition-colors py-2 border-b border-gray-200/30 dark:border-white/5" 
+            href="#experience"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Experience
+          </a>
+          <a 
+            className="font-label-caps text-base text-gray-800 dark:text-secondary-fixed hover:text-green-700 dark:hover:text-primary-container transition-colors py-2 border-b border-gray-200/30 dark:border-white/5" 
+            href="#organizer"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            About Us
+          </a>
+        </div>
+      </div>
+
       {/* ──── CINEMATIC HERO ──── */}
       <section ref={heroRef} className="hero-bg relative min-h-screen flex items-center pt-24 overflow-hidden z-10" id="hero-section">
         <div ref={cursorRef} id="cursor-glow"></div>
         
-        {/* Background 3D Parallax Band Image */}
-        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none flex items-end justify-center lg:justify-end select-none">
+        {/* Background 3D Parallax Band Image (Desktop Only) */}
+        <div className="hidden lg:flex absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none items-end justify-end select-none">
           {/* Ambient Glowing Blob behind the band */}
           <div 
             ref={ambientGlowRef}
@@ -443,11 +535,11 @@ function App() {
         </div>
 
         {/* Hero Content Grid */}
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-gutter py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-4 md:px-gutter py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal">
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             <p className="font-label-caps text-label-caps text-green-700 dark:text-green-400 mb-4 tracking-widest uppercase">The Ultimate Frequency</p>
-            <h1 className="font-display-lg text-display-lg text-gray-900 dark:text-white mb-4 neon-glow leading-none floating-brand">EPILOGUE '26</h1>
-            <p className="font-body-lg text-body-lg text-gray-600 dark:text-secondary-fixed-dim mb-8 max-w-xl">
+            <h1 className="font-display-lg text-4xl sm:text-6xl lg:text-display-lg text-gray-900 dark:text-white mb-4 neon-glow leading-none floating-brand">EPILOGUE '26</h1>
+            <p className="font-body-lg text-sm sm:text-body-lg text-gray-600 dark:text-secondary-fixed-dim mb-8 max-w-xl">
               A night where music transcends boundaries. One stage. Unlimited frequencies.
             </p>
 
@@ -456,7 +548,7 @@ function App() {
               <h3 className="font-label-caps text-xs text-green-700 dark:text-primary-container tracking-widest uppercase mb-4 text-center lg:text-left font-bold">
                 FREQUENCY LOCKING IN...
               </h3>
-              <div className="flex gap-3 md:gap-4 justify-center lg:justify-start">
+              <div className="flex gap-2 sm:gap-3 md:gap-4 justify-center lg:justify-start">
                 {[
                   { value: days, label: 'DAYS' },
                   { value: hours, label: 'HRS' },
@@ -464,9 +556,9 @@ function App() {
                   { value: seconds, label: 'SECS' },
                 ].map((item, idx) => (
                   <React.Fragment key={item.label}>
-                    {idx > 0 && <div className="text-green-700 dark:text-primary-container font-headline-lg text-headline-lg self-start mt-1 animate-pulse">:</div>}
+                    {idx > 0 && <div className="text-green-700 dark:text-primary-container text-2xl md:text-headline-lg self-start mt-1 animate-pulse">:</div>}
                     <div className="flex flex-col items-center">
-                      <span className="font-headline-lg text-headline-lg font-mono countdown-digit text-gray-900 dark:text-white">{item.value}</span>
+                      <span className="text-2xl sm:text-3xl md:text-headline-lg font-headline-lg font-mono countdown-digit text-gray-900 dark:text-white">{item.value}</span>
                       <span className="font-label-caps text-[9px] text-secondary-container dark:text-secondary-fixed-dim mt-2 tracking-widest font-bold">{item.label}</span>
                     </div>
                   </React.Fragment>
@@ -474,48 +566,60 @@ function App() {
               </div>
             </div>
 
+            {/* In-flow Band Cutout Image for Mobile/Tablet */}
+            <div className="lg:hidden w-full flex justify-center mb-8 mt-2">
+              <div className="relative max-w-[320px] sm:max-w-[380px] w-full">
+                <div className="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-cyan-500/10 rounded-full blur-[60px]" />
+                <img
+                  src="/band/daddy_cutout.png"
+                  alt="Daddy Band Members"
+                  className="relative max-h-[30vh] sm:max-h-[35vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
+                />
+              </div>
+            </div>
+
             {/* Event Info Bar */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-6 md:gap-8 mt-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 md:gap-8 mt-4">
               <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
                 <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-                <span className="font-body-md text-body-md">Coming Soon 2026</span>
+                <span className="font-body-md text-sm sm:text-body-md">Coming Soon 2026</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
                 <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                <span className="font-body-md text-body-md">Venue TBA</span>
+                <span className="font-body-md text-sm sm:text-body-md">Venue TBA</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
                 <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                <span className="font-body-md text-body-md">6:00 PM Onwards</span>
+                <span className="font-body-md text-sm sm:text-body-md">6:00 PM Onwards</span>
               </div>
             </div>
           </div>
           
-          {/* Right Column: Empty to allow the band members' background image to show fully without overlap */}
-          <div className="lg:col-span-5 pointer-events-none"></div>
+          {/* Right Column: Empty on desktop, hidden on mobile */}
+          <div className="hidden lg:block lg:col-span-5 pointer-events-none"></div>
         </div>
       </section>
 
       {/* Lineup Section */}
-      <section className="py-20 px-gutter reveal bg-surface-container-lowest" id="lineup">
+      <section className="py-20 px-4 md:px-gutter reveal bg-surface-container-lowest" id="lineup">
         <div className="max-w-container-max mx-auto">
-          <h2 className="font-display-lg text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
+          <h2 className="font-display-lg text-4xl sm:text-6xl lg:text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
             HEADLINING
-            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 font-headline-md tracking-normal">HEADLINING</span>
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 text-lg sm:text-2xl lg:text-headline-md tracking-normal font-sans">HEADLINING</span>
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative group overflow-hidden rounded-2xl glass-panel border-glow transition-all duration-500 shadow-2xl">
               <img alt="Daddy Band Portrait" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0" src="/band/daddy_1.jpg"/>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#0c0f0f] via-transparent to-transparent"></div>
-              <div className="absolute bottom-0 left-0 p-8 w-full flex justify-between items-end">
-                <h3 className="font-headline-lg text-headline-lg text-gray-900 dark:text-white">DADDY</h3>
-                <span className="bg-primary-container text-on-primary-fixed px-3 py-1 rounded-full font-label-caps text-label-caps">MAIN STAGE</span>
+              <div className="absolute bottom-0 left-0 p-4 sm:p-8 w-full flex justify-between items-end gap-4">
+                <h3 className="font-headline-lg text-2xl sm:text-4xl lg:text-headline-lg text-gray-900 dark:text-white leading-tight">DADDY</h3>
+                <span className="bg-primary-container text-on-primary-fixed px-3 py-1 rounded-full font-label-caps text-label-caps whitespace-nowrap">MAIN STAGE</span>
               </div>
             </div>
             <div className="flex flex-col gap-8">
-              <div className="glass-panel p-8 rounded-xl">
-                <h3 className="font-headline-md text-headline-md mb-4 text-gray-900 dark:text-on-surface">ABOUT THE ARTIST</h3>
-                <p className="font-body-lg text-body-lg text-gray-700 dark:text-secondary-fixed-dim mb-6 leading-relaxed">
+              <div className="glass-panel p-6 sm:p-8 rounded-xl">
+                <h3 className="font-headline-md text-xl sm:text-headline-md mb-4 text-gray-900 dark:text-on-surface">ABOUT THE ARTIST</h3>
+                <p className="font-body-lg text-sm sm:text-body-lg text-gray-700 dark:text-secondary-fixed-dim mb-6 leading-relaxed">
                   Experience the sonic evolution. Daddy returns to the main stage with a highly anticipated 90-minute set, blending their iconic rock anthems with new, experimental frequencies. Known for their high-energy performances and intricate musicality, this is a set designed to transcend boundaries.
                 </p>
                 <div className="flex gap-4">
@@ -541,11 +645,11 @@ function App() {
 
 
       {/* Gallery Section */}
-      <section className="py-20 px-gutter reveal bg-surface-container-lowest" id="gallery">
+      <section className="py-20 px-4 md:px-gutter reveal bg-surface-container-lowest" id="gallery">
         <div className="max-w-container-max mx-auto relative px-4">
-          <h2 className="font-display-lg text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
+          <h2 className="font-display-lg text-4xl sm:text-6xl lg:text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
             THE GALLERY
-            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 font-headline-md tracking-normal">THE GALLERY</span>
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 text-lg sm:text-2xl lg:text-headline-md tracking-normal font-sans">THE GALLERY</span>
           </h2>
           
           {/* Horizontal Slider Wrapper */}
@@ -577,7 +681,7 @@ function App() {
                       loading="lazy"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-100 lg:opacity-0 lg:hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                     <p className="font-label-caps text-[9px] text-green-400 tracking-wider font-bold mb-1">{img.category}</p>
                     <h4 className="font-headline-sm text-sm text-white font-bold leading-tight">{img.title}</h4>
                     <p className="text-[10px] text-gray-400 mt-1 line-clamp-1">{img.alt}</p>
@@ -590,11 +694,11 @@ function App() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20 px-gutter reveal" id="experience">
+      <section className="py-20 px-4 md:px-gutter reveal" id="experience">
         <div className="max-w-container-max mx-auto">
-          <h2 className="font-display-lg text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
+          <h2 className="font-display-lg text-3xl sm:text-5xl lg:text-display-lg mb-16 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative">
             WHAT IS EPILOGUE
-            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 font-headline-md tracking-normal">WHAT IS EPILOGUE</span>
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 text-base sm:text-xl lg:text-headline-md tracking-normal font-sans">WHAT IS EPILOGUE</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -602,7 +706,7 @@ function App() {
               { icon: "celebration", title: "THE VIBE", desc: "A night filled with electrifying performances, neon aesthetics, and an unforgettable atmosphere that transcends boundaries." },
               { icon: "groups", title: "THE COMMUNITY", desc: "Organized by MoraSpirit, it unites students from all universities under one sky to connect, celebrate, and create memories." }
             ].map(item => (
-              <div key={item.title} className="glass-panel p-8 rounded-2xl border border-outline-variant/20 hover:border-green-700/40 dark:hover:border-primary-container/40 transition-all duration-300 group hover:translate-y-[-4px] shadow-md hover:shadow-xl">
+              <div key={item.title} className="glass-panel p-6 sm:p-8 rounded-2xl border border-outline-variant/20 hover:border-green-700/40 dark:hover:border-primary-container/40 transition-all duration-300 group hover:translate-y-[-4px] shadow-md hover:shadow-xl">
                 <div className="w-14 h-14 rounded-xl bg-green-700/10 dark:bg-primary-container/10 flex items-center justify-center mb-6 group-hover:bg-green-700/20 dark:group-hover:bg-primary-container/20 transition-all duration-300">
                   <span className="material-symbols-outlined text-2xl text-green-700 dark:text-primary-container">{item.icon}</span>
                 </div>
@@ -615,16 +719,16 @@ function App() {
       </section>
 
       {/* Organizer / About Us Section */}
-      <section className="py-20 px-gutter reveal" id="organizer">
-        <div className="max-w-container-max mx-auto glass-panel p-8 md:p-12 rounded-3xl border border-outline-variant/30 flex flex-col lg:flex-row items-center gap-12 shadow-2xl relative overflow-hidden">
+      <section className="py-20 px-4 md:px-gutter reveal" id="organizer">
+        <div className="max-w-container-max mx-auto glass-panel p-6 sm:p-8 md:p-12 rounded-3xl border border-outline-variant/30 flex flex-col lg:flex-row items-center gap-12 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 dark:bg-primary-container/10 rounded-full blur-3xl pointer-events-none" />
           <div className="flex-1 space-y-6 z-10">
             <h3 className="font-label-caps text-label-caps text-green-700 dark:text-primary-container tracking-widest">OFFICIAL ORGANIZER</h3>
-            <h2 className="font-headline-lg text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit</h2>
-            <p className="font-body-md text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
+            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit</h2>
+            <p className="font-body-md text-sm sm:text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
               Founded on September 25, 2009, by undergraduates of the University of Moratuwa, MoraSpirit is the pioneering and premier university sports media portal in Sri Lanka. We empower university sports by fostering an unbiased sporting culture and bridging the gap between athletes and the community.
             </p>
-            <p className="font-body-md text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
+            <p className="font-body-md text-sm sm:text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
               From our flagship events to our dedicated initiatives, our passionate crew of volunteer journalists, photographers, and editors work tirelessly to celebrate the spirit of university athletes.
             </p>
             <div className="pt-4 space-y-4">
@@ -699,16 +803,16 @@ function App() {
 
           </div>
           <div className="flex-1 w-full grid grid-cols-2 gap-4 z-10">
-            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Coverage" className="rounded-2xl w-full h-48 md:h-64 object-cover object-left shadow-lg hover:scale-105 transition-transform duration-500 border border-outline-variant/20" />
-            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Crew" className="rounded-2xl w-full h-48 md:h-64 object-cover object-right shadow-lg hover:scale-105 transition-transform duration-500 mt-8 border border-outline-variant/20" />
+            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Coverage" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-left shadow-lg hover:scale-105 transition-transform duration-500 border border-outline-variant/20" />
+            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Crew" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-right shadow-lg hover:scale-105 transition-transform duration-500 mt-8 border border-outline-variant/20" />
           </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="w-full py-16 bg-gray-50 dark:bg-surface-container-lowest border-t border-outline-variant/20 transition-colors duration-500 reveal">
-        <div className="flex flex-col items-center gap-6 px-gutter text-center max-w-container-max mx-auto">
-          <div className="font-headline-lg text-headline-lg text-gray-900 dark:text-primary-fixed mb-4">
+        <div className="flex flex-col items-center gap-6 px-4 md:px-gutter text-center max-w-container-max mx-auto">
+          <div className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-primary-fixed mb-4">
             EPILOGUE '26
           </div>
           <div className="flex gap-4 mb-8 text-gray-600 dark:text-secondary-fixed-dim">
@@ -746,23 +850,26 @@ function App() {
       {/* Lightbox Modal */}
       {lightboxOpen && (
         <div 
-          className="fixed inset-0 z-[100000] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300"
+          className="fixed inset-0 z-[100000] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300 select-none"
           onClick={closeLightbox}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* Close Button */}
           <button 
-            className="absolute top-6 right-6 text-white hover:text-green-400 transition-colors"
+            className="absolute top-6 right-6 text-white hover:text-green-400 transition-colors z-50 bg-black/40 hover:bg-black/60 p-2 rounded-full"
             onClick={closeLightbox}
           >
-            <span className="material-symbols-outlined text-4xl">close</span>
+            <span className="material-symbols-outlined text-3xl md:text-4xl">close</span>
           </button>
 
           {/* Left Arrow */}
           <button 
-            className="absolute left-6 text-white hover:text-green-400 transition-colors bg-white/5 hover:bg-white/10 p-3 rounded-full hidden md:block"
+            className="absolute left-4 md:left-6 text-white hover:text-green-400 transition-colors bg-black/40 hover:bg-black/60 p-2.5 md:p-3 rounded-full flex items-center justify-center z-10"
             onClick={prevImage}
           >
-            <span className="material-symbols-outlined text-3xl">arrow_back_ios_new</span>
+            <span className="material-symbols-outlined text-2xl md:text-3xl">arrow_back_ios_new</span>
           </button>
 
           {/* Image Container */}
@@ -773,16 +880,16 @@ function App() {
             <img 
               src={galleryImages[lightboxIndex].src} 
               alt={galleryImages[lightboxIndex].alt} 
-              className="max-h-[75vh] object-contain rounded-lg shadow-2xl border border-white/10"
+              className="max-h-[60vh] md:max-h-[75vh] object-contain rounded-lg shadow-2xl border border-white/10"
             />
-            <div className="text-center mt-4 text-white">
-              <p className="font-label-caps text-xs text-green-400 font-bold tracking-widest mb-1">
+            <div className="text-center mt-4 text-white px-4">
+              <p className="font-label-caps text-[10px] md:text-xs text-green-400 font-bold tracking-widest mb-1">
                 {galleryImages[lightboxIndex].category}
               </p>
-              <h3 className="font-headline-sm text-lg font-bold">
+              <h3 className="font-headline-sm text-sm sm:text-base md:text-lg font-bold">
                 {galleryImages[lightboxIndex].title}
               </h3>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-[10px] md:text-xs text-gray-400 mt-1 max-w-md mx-auto line-clamp-2 md:line-clamp-none">
                 {galleryImages[lightboxIndex].alt}
               </p>
             </div>
@@ -790,10 +897,10 @@ function App() {
 
           {/* Right Arrow */}
           <button 
-            className="absolute right-6 text-white hover:text-green-400 transition-colors bg-white/5 hover:bg-white/10 p-3 rounded-full hidden md:block"
+            className="absolute right-4 md:right-6 text-white hover:text-green-400 transition-colors bg-black/40 hover:bg-black/60 p-2.5 md:p-3 rounded-full flex items-center justify-center z-10"
             onClick={nextImage}
           >
-            <span className="material-symbols-outlined text-3xl">arrow_forward_ios</span>
+            <span className="material-symbols-outlined text-2xl md:text-3xl">arrow_forward_ios</span>
           </button>
         </div>
       )}

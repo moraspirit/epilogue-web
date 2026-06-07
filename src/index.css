@@ -438,4 +438,32 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
     }
+
+    /* Mobile Responsive Loader Glass & Equalizer */
+    @media (max-width: 480px) {
+        .loader-glass {
+            padding: 2.2rem 1.5rem !important;
+            border-radius: 1.5rem !important;
+        }
+        .loader-music-wave {
+            gap: 4px !important;
+            height: 50px !important;
+            margin-bottom: 1.8rem !important;
+            padding: 5px !important;
+        }
+        .loader-music-wave .bar {
+            width: 4px !important;
+        }
+        .loader-music-wave .bar:nth-child(1) { height: 20px !important; }
+        .loader-music-wave .bar:nth-child(2) { height: 30px !important; }
+        .loader-music-wave .bar:nth-child(3) { height: 40px !important; }
+        .loader-music-wave .bar:nth-child(4) { height: 25px !important; }
+        .loader-music-wave .bar:nth-child(5) { height: 35px !important; }
+        .loader-music-wave .bar:nth-child(6) { height: 45px !important; }
+        .loader-music-wave .bar:nth-child(7) { height: 28px !important; }
+        .loader-music-wave .bar:nth-child(8) { height: 38px !important; }
+        .loader-music-wave .bar:nth-child(9) { height: 20px !important; }
+        .loader-music-wave .bar:nth-child(10) { height: 32px !important; }
+        .loader-music-wave .bar:nth-child(11) { height: 18px !important; }
+    }
 }
