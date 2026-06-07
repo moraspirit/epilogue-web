@@ -4,19 +4,21 @@ export default function Footer() {
   return (
     <footer className="w-full py-16 bg-gray-50 dark:bg-surface-container-lowest border-t border-outline-variant/20 transition-colors duration-500 reveal">
       <div className="flex flex-col items-center gap-6 px-4 md:px-gutter text-center max-w-container-max mx-auto">
-        <div className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-primary-fixed mb-2">
-          EPILOGUE '26
-        </div>
+        <img 
+          src={`${import.meta.env.BASE_URL}epilogue-logo.png`} 
+          alt="Epilogue '26 Logo" 
+          className="h-14 w-auto object-contain mb-2" 
+        />
         <div className="flex flex-col items-center gap-2 mb-4">
           <img 
             src={`${import.meta.env.BASE_URL}Moraspirit 360 logo white_red.png`} 
             alt="MoraSpirit Logo" 
-            className="h-10 w-auto object-contain dark:block hidden" 
+            className="h-8 w-auto object-contain dark:block hidden" 
           />
           <img 
             src={`${import.meta.env.BASE_URL}Moraspirit 360 logo black_red.png`} 
             alt="MoraSpirit Logo" 
-            className="h-10 w-auto object-contain dark:hidden block" 
+            className="h-8 w-auto object-contain dark:hidden block" 
           />
           <span className="text-[10px] tracking-widest text-gray-500 uppercase font-label-caps mt-1">Organized By MoraSpirit</span>
         </div>

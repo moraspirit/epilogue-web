@@ -124,7 +124,11 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-container-max mx-auto px-4 md:px-gutter py-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal">
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
           <p className="font-label-caps text-label-caps text-green-700 dark:text-green-400 mb-4 tracking-widest uppercase">The Ultimate Frequency</p>
-          <h1 className="font-display-lg text-4xl sm:text-6xl lg:text-display-lg text-gray-900 dark:text-white mb-4 neon-glow leading-none floating-brand">EPILOGUE '26</h1>
+          <img 
+            src={`${import.meta.env.BASE_URL}epilogue-logo.png`} 
+            alt="EPILOGUE '26" 
+            className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain mb-4 floating-brand filter drop-shadow-[0_0_20px_rgba(34,255,68,0.2)]" 
+          />
           <p className="font-body-lg text-sm sm:text-body-lg text-gray-600 dark:text-secondary-fixed-dim mb-8 max-w-xl">
             A night where music transcends boundaries. One stage. Unlimited frequencies.
           </p>
