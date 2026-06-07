@@ -2,6 +2,32 @@ import { useState, useEffect } from 'react';
 
 export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTicketsClick }) {
   const [scrolled, setScrolled] = useState(false);
+  const [ticketTimeLeft, setTicketTimeLeft] = useState('');
+
+  // Ticket release separate countdown timer (July 1, 2026 at 12:00:00 PM)
+  useEffect(() => {
+    const target = new Date('2026-06-10T19:00:00').getTime();
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = target - now;
+
+      if (difference <= 0) {
+        setTicketTimeLeft('NOW ON SALE');
+        return;
+      }
+
+      const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+      setTicketTimeLeft(`${d}d ${h}h ${m}m ${s}s`);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -35,9 +61,15 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
           <div className="flex gap-3 items-center">
             <button 
               onClick={onBuyTicketsClick}
-              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-4 sm:px-6 py-2.5 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center gap-1.5 sm:gap-2"
+              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-3 sm:px-5 py-1.5 sm:py-2 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center gap-1.5 sm:gap-2"
             >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg> BUY TICKETS
+              <svg className="hidden sm:block w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+              <span className="flex flex-col items-start sm:items-center sm:flex-row sm:gap-2 text-left">
+                <span className="leading-none sm:leading-normal">BUY TICKETS</span>
+                <span className="text-[8.5px] sm:text-[10px] text-white/90 dark:text-on-primary-fixed/90 bg-black/20 dark:bg-black/10 px-1 py-0.5 rounded font-mono font-normal mt-0.5 sm:mt-0 leading-none">
+                  {ticketTimeLeft}
+                </span>
+              </span>
             </button>
             
             {/* Hamburger Button for Mobile */}
