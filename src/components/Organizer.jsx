@@ -66,7 +66,7 @@ export default function Organizer() {
               alt="MoraSpirit Logo" 
               className="h-10 sm:h-12 w-auto object-contain dark:hidden block" 
             />
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit</h2>
+            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit 360</h2>
           </div>
           <p className="font-body-md text-sm sm:text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
             Founded on September 25, 2009, by undergraduates of the University of Moratuwa, MoraSpirit is the pioneering and premier university sports media portal in Sri Lanka. We empower university sports by fostering an unbiased sporting culture and bridging the gap between athletes and the community.

@@ -23,8 +23,8 @@ export default function Footer() {
           <span className="text-[10px] tracking-widest text-gray-500 uppercase font-label-caps mt-1">Organized By MoraSpirit</span>
         </div>
         <div className="flex gap-4 mb-8 text-gray-600 dark:text-secondary-fixed-dim">
-          <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="mailto:hr@moraspirit.com">
-            <span className="material-symbols-outlined text-sm">mail</span> hr@moraspirit.com
+          <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="mailto:info@moraspirit.com">
+            <span className="material-symbols-outlined text-sm">mail</span> info@moraspirit.com
           </a>
           <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="https://moraspirit.com" target="_blank" rel="noopener noreferrer">
             <span className="material-symbols-outlined text-sm">language</span> moraspirit.com
@@ -49,7 +49,7 @@ export default function Footer() {
         </div>
 
         <p className="font-label-caps text-label-caps text-secondary-container dark:text-secondary-fixed-dim text-xs">
-          © 2026 EPILOGUE FESTIVAL. ALL RIGHTS RESERVED. HEADLINING: DADDY.
+          © EPILOGUE'26 . ALL RIGHTS RESERVED.
         </p>
       </div>
     </footer>
