@@ -32,16 +32,7 @@ export default function Lineup() {
                 <span className="px-4 py-2 border border-outline-variant rounded font-label-caps text-label-caps text-gray-600 dark:text-secondary-fixed-dim hover:border-green-700 dark:hover:border-primary-container transition-colors cursor-pointer">ALTERNATIVE</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="glass-panel p-6 rounded-xl border-l-2 border-green-700 dark:border-primary-container group hover:bg-green-700/5 dark:hover:bg-primary-container/5 transition-colors">
-                <h4 className="font-label-caps text-label-caps text-secondary-container dark:text-secondary-fixed-dim mb-2 group-hover:text-green-700 dark:group-hover:text-primary-container transition-colors">SET TIME</h4>
-                <p className="font-headline-md text-headline-md font-mono text-gray-900 dark:text-on-surface">22:00</p>
-              </div>
-              <div className="glass-panel p-6 rounded-xl border-l-2 border-green-700 dark:border-primary-container group hover:bg-green-700/5 dark:hover:bg-primary-container/5 transition-colors">
-                <h4 className="font-label-caps text-label-caps text-secondary-container dark:text-secondary-fixed-dim mb-2 group-hover:text-green-700 dark:group-hover:text-primary-container transition-colors">DURATION</h4>
-                <p className="font-headline-md text-headline-md font-mono text-gray-900 dark:text-on-surface">90M</p>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>

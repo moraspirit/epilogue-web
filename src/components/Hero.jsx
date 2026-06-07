@@ -14,11 +14,20 @@ export default function Hero() {
 
   // Countdown Timer (with seconds)
   useEffect(() => {
-    const countdownDate = new Date();
-    countdownDate.setDate(countdownDate.getDate() + 45);
+    const countdownTarget = new Date('2026-07-28T18:00:00').getTime();
     const interval = setInterval(() => {
       const now = new Date().getTime();
-      const distance = countdownDate.getTime() - now;
+      const distance = countdownTarget - now;
+      
+      if (distance <= 0) {
+        clearInterval(interval);
+        setDays('00');
+        setHours('00');
+        setMinutes('00');
+        setSeconds('00');
+        return;
+      }
+      
       const d = Math.floor(distance / (1000 * 60 * 60 * 24));
       const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -159,11 +168,11 @@ export default function Hero() {
           <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 md:gap-8 mt-4">
             <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
               <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-              <span className="font-body-md text-sm sm:text-body-md">Coming Soon 2026</span>
+              <span className="font-body-md text-sm sm:text-body-md">July 28, 2026</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
               <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-              <span className="font-body-md text-sm sm:text-body-md">Venue TBA</span>
+              <span className="font-body-md text-sm sm:text-body-md">Venue : Lagan</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600 dark:text-secondary-fixed-dim">
               <svg className="w-5 h-5 text-green-700 dark:text-primary-container fill-current" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
