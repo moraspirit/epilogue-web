@@ -627,19 +627,76 @@ function App() {
             <p className="font-body-md text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
               From our flagship events to our dedicated initiatives, our passionate crew of volunteer journalists, photographers, and editors work tirelessly to celebrate the spirit of university athletes.
             </p>
-            <div className="pt-4">
-              <a 
-                href="https://www.facebook.com/MoraSpirit/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="inline-flex items-center gap-3 px-6 py-3 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] dark:text-[#60A5FA] rounded-xl font-label-caps text-sm transition-all duration-300 border border-[#1877F2]/20 shadow-sm"
-              >
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                FOLLOW MORASPIRIT
-              </a>
+            <div className="pt-4 space-y-4">
+              <h4 className="font-label-caps text-xs text-gray-500 dark:text-gray-400 tracking-wider">Connect with our community</h4>
+              <div className="flex flex-wrap gap-3">
+                {/* MoraSpirit Facebook */}
+                <a 
+                  href="https://www.facebook.com/MoraSpirit?mibextid=wwXIfr&mibextid=wwXIfr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] dark:text-[#60A5FA] rounded-xl font-label-caps text-xs font-bold transition-all duration-300 border border-[#1877F2]/20 shadow-sm hover:scale-[1.03]"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  MoraSpirit
+                </a>
+                
+                {/* Mora Nade Facebook */}
+                <a 
+                  href="https://www.facebook.com/MoraNade?mibextid=wwXIfr&mibextid=wwXIfr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] dark:text-[#60A5FA] rounded-xl font-label-caps text-xs font-bold transition-all duration-300 border border-[#1877F2]/20 shadow-sm hover:scale-[1.03]"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  Mora Nade
+                </a>
+
+                {/* Moraspirit 360 Facebook */}
+                <a 
+                  href="https://www.facebook.com/MoraSpirit360?mibextid=wwXIfr&mibextid=wwXIfr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] dark:text-[#60A5FA] rounded-xl font-label-caps text-xs font-bold transition-all duration-300 border border-[#1877F2]/20 shadow-sm hover:scale-[1.03]"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                  MoraSpirit 360
+                </a>
+
+                {/* TikTok */}
+                <a 
+                  href="https://www.tiktok.com/@moraspirit_official?_r=1&_t=ZS-970HXRYZ5q1" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-black/10 dark:bg-white/10 hover:bg-black/20 dark:hover:bg-white/20 text-gray-900 dark:text-white rounded-xl font-label-caps text-xs font-bold transition-all duration-300 border border-gray-900/10 dark:border-white/10 shadow-sm hover:scale-[1.03]"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.52-4.06-1.37-.82-.6-1.5-1.4-1.97-2.3-.08 3.52 0 7.05-.06 10.56-.13 2.16-.99 4.32-2.71 5.62-1.74 1.35-4.11 1.77-6.26 1.33-2.31-.44-4.42-2.11-5.18-4.36-.85-2.43-.37-5.32 1.35-7.16 1.33-1.48 3.41-2.28 5.4-2.1v4.07c-1.12-.13-2.34.18-3.08 1.05-.72.82-.77 2.13-.24 3.09.58 1.09 1.87 1.74 3.09 1.57 1.34-.14 2.45-1.32 2.49-2.67.06-4.66.03-9.32.05-13.98z"/>
+                  </svg>
+                  TikTok
+                </a>
+
+                {/* LinkedIn */}
+                <a 
+                  href="https://www.linkedin.com/company/moraspirit-initiative/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 text-[#0A66C2] dark:text-[#38BDF8] rounded-xl font-label-caps text-xs font-bold transition-all duration-300 border border-[#0A66C2]/20 shadow-sm hover:scale-[1.03]"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  LinkedIn
+                </a>
+              </div>
             </div>
+
           </div>
           <div className="flex-1 w-full grid grid-cols-2 gap-4 z-10">
             <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Coverage" className="rounded-2xl w-full h-48 md:h-64 object-cover object-left shadow-lg hover:scale-105 transition-transform duration-500 border border-outline-variant/20" />
@@ -658,10 +715,28 @@ function App() {
             <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="mailto:info@epilogue26.com">
               <span className="material-symbols-outlined text-sm">mail</span> info@epilogue26.com
             </a>
-            <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="#">
-              <span className="material-symbols-outlined text-sm">link</span> @epiloguefest
+            <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="https://moraspirit.com" target="_blank" rel="noopener noreferrer">
+              <span className="material-symbols-outlined text-sm">language</span> moraspirit.com
             </a>
           </div>
+          <div className="flex gap-6 mb-8 justify-center text-gray-600 dark:text-secondary-fixed-dim">
+            <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors" href="https://www.facebook.com/MoraSpirit?mibextid=wwXIfr&mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" title="Facebook">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+            <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors" href="https://www.tiktok.com/@moraspirit_official?_r=1&_t=ZS-970HXRYZ5q1" target="_blank" rel="noopener noreferrer" title="TikTok">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.52-4.06-1.37-.82-.6-1.5-1.4-1.97-2.3-.08 3.52 0 7.05-.06 10.56-.13 2.16-.99 4.32-2.71 5.62-1.74 1.35-4.11 1.77-6.26 1.33-2.31-.44-4.42-2.11-5.18-4.36-.85-2.43-.37-5.32 1.35-7.16 1.33-1.48 3.41-2.28 5.4-2.1v4.07c-1.12-.13-2.34.18-3.08 1.05-.72.82-.77 2.13-.24 3.09.58 1.09 1.87 1.74 3.09 1.57 1.34-.14 2.45-1.32 2.49-2.67.06-4.66.03-9.32.05-13.98z"/>
+              </svg>
+            </a>
+            <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors" href="https://www.linkedin.com/company/moraspirit-initiative/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+          </div>
+
           <div className="flex gap-6 mb-8">
             <a className="font-body-md text-body-md text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">Privacy</a>
             <a className="font-body-md text-body-md text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-fixed-dim transition-colors cursor-pointer" href="#">Terms</a>
