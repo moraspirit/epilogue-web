@@ -91,12 +91,12 @@ function App() {
 
   // MoraSpirit Gallery images (representing the club)
   const galleryImages = [
-    { src: '/gallery/moraspirit_slug.jpg', alt: 'Road to SLUG Championship Coverage', title: 'ROAD TO SLUG', category: 'EVENT COVERAGE' },
-    { src: '/gallery/moraspirit_victory_celebration.png', alt: 'Inter-University Championship Victory Celebration', title: 'CHAMPIONS CELEBRATION', category: 'VICTORY' },
-    { src: '/gallery/moraspirit_rowing.jpg', alt: 'Inter-University Rowing Championship on the Waters', title: 'THRILL ON WATERS', category: 'ROWING' },
-    { src: '/gallery/moraspirit_ceremony.jpg', alt: 'Opening Ceremony of Sports Championships', title: 'GRAND OPENING', category: 'CEREMONY' },
-    { src: '/gallery/moraspirit_paralympics.png', alt: 'Paralympic Athletics & Overcoming Challenges', title: 'BEYOND LIMITS', category: 'ATHLETICS' },
-    { src: '/gallery/moraspirit_olympic.png', alt: 'Milestones of Sri Lankan Sports and Olympics', title: 'OLYMPIC MILESTONES', category: 'SPORTS HISTORY' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_slug.jpg`, alt: 'Road to SLUG Championship Coverage', title: 'ROAD TO SLUG', category: 'EVENT COVERAGE' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_victory_celebration.png`, alt: 'Inter-University Championship Victory Celebration', title: 'CHAMPIONS CELEBRATION', category: 'VICTORY' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_rowing.jpg`, alt: 'Inter-University Rowing Championship on the Waters', title: 'THRILL ON WATERS', category: 'ROWING' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_ceremony.jpg`, alt: 'Opening Ceremony of Sports Championships', title: 'GRAND OPENING', category: 'CEREMONY' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_paralympics.png`, alt: 'Paralympic Athletics & Overcoming Challenges', title: 'BEYOND LIMITS', category: 'ATHLETICS' },
+    { src: `${import.meta.env.BASE_URL}gallery/moraspirit_olympic.png`, alt: 'Milestones of Sri Lankan Sports and Olympics', title: 'OLYMPIC MILESTONES', category: 'SPORTS HISTORY' },
   ];
 
   // Lightbox state
@@ -395,8 +395,17 @@ function App() {
       {/* ──── TOP NAVIGATION ──── */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center px-4 md:px-gutter py-4 max-w-container-max mx-auto">
-          <div className="font-headline-md text-2xl md:text-headline-md tracking-tighter text-gray-900 dark:text-primary-fixed cursor-pointer floating-brand" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }}>
-            EPILOGUE '26
+          <div className="cursor-pointer flex items-center" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }}>
+            <img 
+              src={`${import.meta.env.BASE_URL}Moraspirit 360 logo white_red.png`} 
+              alt="MoraSpirit Logo" 
+              className="h-8 sm:h-10 w-auto object-contain dark:block hidden" 
+            />
+            <img 
+              src={`${import.meta.env.BASE_URL}Moraspirit 360 logo black_red.png`} 
+              alt="MoraSpirit Logo" 
+              className="h-8 sm:h-10 w-auto object-contain dark:hidden block" 
+            />
           </div>
           <div className="hidden md:flex gap-8 items-center">
             <a className="font-label-caps text-label-caps text-gray-600 dark:text-secondary-fixed-dim hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#lineup">Lineup</a>
@@ -490,7 +499,7 @@ function App() {
             {/* Cutout Image of Band Members with 3D Parallax */}
             <img
               ref={bandRef}
-              src="/band/daddy_cutout.webp"
+              src={`${import.meta.env.BASE_URL}band/daddy_cutout.webp`}
               alt="Daddy Band Members"
               onLoad={() => setBandImageLoaded(true)}
               className="relative max-h-[65vh] xl:max-h-[75vh] 2xl:max-h-[80vh] object-contain w-auto right-0 lg:right-[2%] bottom-[-5%] transition-transform duration-300 ease-out drop-shadow-[0_20px_50px_rgba(34,255,68,0.15)] filter saturate-[1.1]"
@@ -542,7 +551,7 @@ function App() {
               <div className="relative max-w-[320px] sm:max-w-[380px] w-full">
                 <div className="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-cyan-500/10 rounded-full blur-[60px]" />
                 <img
-                  src="/band/daddy_cutout.webp"
+                  src={`${import.meta.env.BASE_URL}band/daddy_cutout.webp`}
                   alt="Daddy Band Members"
                   onLoad={() => setBandImageLoaded(true)}
                   className="relative max-h-[30vh] sm:max-h-[35vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
@@ -581,7 +590,7 @@ function App() {
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative group overflow-hidden rounded-2xl glass-panel border-glow transition-all duration-500 shadow-2xl">
-              <img alt="Daddy Band Portrait" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0" src="/band/daddy_1.jpg"/>
+              <img alt="Daddy Band Portrait" className="w-full h-auto object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500 grayscale group-hover:grayscale-0" src={`${import.meta.env.BASE_URL}band/daddy_1.jpg`}/>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-50 dark:from-[#0c0f0f] via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-4 sm:p-8 w-full flex justify-between items-end gap-4">
                 <h3 className="font-headline-lg text-2xl sm:text-4xl lg:text-headline-lg text-gray-900 dark:text-white leading-tight">DADDY</h3>
@@ -696,7 +705,19 @@ function App() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 dark:bg-primary-container/10 rounded-full blur-3xl pointer-events-none" />
           <div className="flex-1 space-y-6 z-10">
             <h3 className="font-label-caps text-label-caps text-green-700 dark:text-primary-container tracking-widest">OFFICIAL ORGANIZER</h3>
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit</h2>
+            <div className="flex items-center gap-4 flex-wrap">
+              <img 
+                src={`${import.meta.env.BASE_URL}Moraspirit 360 logo white_red.png`} 
+                alt="MoraSpirit Logo" 
+                className="h-10 sm:h-12 w-auto object-contain dark:block hidden" 
+              />
+              <img 
+                src={`${import.meta.env.BASE_URL}Moraspirit 360 logo black_red.png`} 
+                alt="MoraSpirit Logo" 
+                className="h-10 sm:h-12 w-auto object-contain dark:hidden block" 
+              />
+              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-on-surface">MoraSpirit</h2>
+            </div>
             <p className="font-body-md text-sm sm:text-body-md text-gray-700 dark:text-secondary-fixed-dim leading-relaxed">
               Founded on September 25, 2009, by undergraduates of the University of Moratuwa, MoraSpirit is the pioneering and premier university sports media portal in Sri Lanka. We empower university sports by fostering an unbiased sporting culture and bridging the gap between athletes and the community.
             </p>
@@ -775,8 +796,8 @@ function App() {
 
           </div>
           <div className="flex-1 w-full grid grid-cols-2 gap-4 z-10">
-            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Coverage" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-left shadow-lg hover:scale-105 transition-transform duration-500 border border-outline-variant/20" />
-            <img src="/gallery/moraspirit_event_actual.png" alt="MoraSpirit Crew" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-right shadow-lg hover:scale-105 transition-transform duration-500 mt-8 border border-outline-variant/20" />
+            <img src={`${import.meta.env.BASE_URL}gallery/moraspirit_event_actual.png`} alt="MoraSpirit Coverage" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-left shadow-lg hover:scale-105 transition-transform duration-500 border border-outline-variant/20" />
+            <img src={`${import.meta.env.BASE_URL}gallery/moraspirit_event_actual.png`} alt="MoraSpirit Crew" className="rounded-2xl w-full h-32 sm:h-48 md:h-64 object-cover object-right shadow-lg hover:scale-105 transition-transform duration-500 mt-8 border border-outline-variant/20" />
           </div>
         </div>
       </section>
@@ -784,8 +805,21 @@ function App() {
       {/* Footer */}
       <footer className="w-full py-16 bg-gray-50 dark:bg-surface-container-lowest border-t border-outline-variant/20 transition-colors duration-500 reveal">
         <div className="flex flex-col items-center gap-6 px-4 md:px-gutter text-center max-w-container-max mx-auto">
-          <div className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-primary-fixed mb-4">
+          <div className="font-headline-lg text-3xl md:text-headline-lg text-gray-900 dark:text-primary-fixed mb-2">
             EPILOGUE '26
+          </div>
+          <div className="flex flex-col items-center gap-2 mb-4">
+            <img 
+              src={`${import.meta.env.BASE_URL}Moraspirit 360 logo white_red.png`} 
+              alt="MoraSpirit Logo" 
+              className="h-10 w-auto object-contain dark:block hidden" 
+            />
+            <img 
+              src={`${import.meta.env.BASE_URL}Moraspirit 360 logo black_red.png`} 
+              alt="MoraSpirit Logo" 
+              className="h-10 w-auto object-contain dark:hidden block" 
+            />
+            <span className="text-[10px] tracking-widest text-gray-500 uppercase font-label-caps mt-1">Organized By MoraSpirit</span>
           </div>
           <div className="flex gap-4 mb-8 text-gray-600 dark:text-secondary-fixed-dim">
             <a className="hover:text-green-700 dark:hover:text-primary-container transition-colors flex items-center gap-2" href="mailto:hr@moraspirit.com">
