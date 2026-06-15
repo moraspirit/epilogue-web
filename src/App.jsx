@@ -8,6 +8,7 @@ import Experience from './components/Experience';
 import Organizer from './components/Organizer';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
+import TicketForm from './components/TicketForm';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,7 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [ticketFormOpen, setTicketFormOpen] = useState(false);
 
   // MoraSpirit Gallery images (representing the club)
   const galleryImages = [
@@ -119,6 +121,7 @@ function App() {
       <Navbar 
         isMobileMenuOpen={isMobileMenuOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
+        onBuyTickets={() => setTicketFormOpen(true)}
       />
 
       {/* ──── CINEMATIC HERO ──── */}
@@ -149,6 +152,12 @@ function App() {
         images={galleryImages} 
         index={lightboxIndex} 
         setIndex={setLightboxIndex} 
+      />
+
+      {/* ──── TICKET FORM MODAL ──── */}
+      <TicketForm 
+        isOpen={ticketFormOpen} 
+        onClose={() => setTicketFormOpen(false)} 
       />
     </div>
   );

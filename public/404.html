@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <script type="text/javascript">
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      
+      // Target ticketing subdomain
+      var targetUrl = "https://ticket.moraspirit.com" + path + search + hash;
+      
+      // Perform client-side redirection
+      window.location.replace(targetUrl);
+    })();
+  </script>
+  <style>
+    body {
+      background-color: #0c0f0f;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .loader {
+      border: 3px solid rgba(34, 255, 68, 0.1);
+      border-radius: 50%;
+      border-top: 3px solid #22ff44;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    p {
+      font-size: 16px;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader"></div>
+  <p>Redirecting you to Epilogue Ticket Portal...</p>
+</body>
+</html>
