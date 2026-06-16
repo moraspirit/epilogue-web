@@ -10,7 +10,9 @@ export default function TicketForm({ isOpen, onClose }) {
     faculty: '',
     department: '',
     ticket_type: 'Standard',
-    num_tickets: 1,
+    num_standard: 0,
+    num_premium: 0,
+    num_alumni: 1,
   });
 
   const [paymentSlip, setPaymentSlip] = useState(null);
@@ -39,7 +41,6 @@ export default function TicketForm({ isOpen, onClose }) {
     const { name, value } = e.target;
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
-      // Default ticket type to 'Alumni' if batch is Alumni
       if (name === 'batch') {
         if (value === 'Alumni') {
           updated.ticket_type = 'Alumni';
@@ -96,12 +97,12 @@ export default function TicketForm({ isOpen, onClose }) {
   };
 
   const calculateTotal = () => {
-    const count = parseInt(formData.num_tickets, 10) || 1;
     if (formData.batch === 'Alumni') {
-      return count * 2300;
+      return (parseInt(formData.num_alumni, 10) || 0) * 2300;
     }
-    const price = formData.ticket_type === 'Premium' ? 1600 : 1200;
-    return count * price;
+    const standard = parseInt(formData.num_standard, 10) || 0;
+    const premium = parseInt(formData.num_premium, 10) || 0;
+    return (standard * 1200) + (premium * 1600);
   };
 
   const handleSubmit = async (e) => {
@@ -125,13 +126,46 @@ export default function TicketForm({ isOpen, onClose }) {
       return;
     }
 
+    let final_ticket_type = '';
+    let final_num_tickets = 0;
+
+    if (formData.batch === 'Alumni') {
+      final_ticket_type = 'Alumni';
+      final_num_tickets = Number(formData.num_alumni) || 0;
+    } else {
+      const stdCount = Number(formData.num_standard) || 0;
+      const prmCount = Number(formData.num_premium) || 0;
+      final_num_tickets = stdCount + prmCount;
+      
+      if (stdCount > 0 && prmCount > 0) {
+        final_ticket_type = 'Standard & Premium';
+      } else if (prmCount > 0) {
+        final_ticket_type = 'Premium';
+      } else {
+        final_ticket_type = 'Standard';
+      }
+    }
+
+    if (final_num_tickets < 1) {
+      setError('Please select at least one ticket.');
+      return;
+    }
+    if (final_num_tickets > 10) {
+      setError('You can only purchase up to 10 tickets per reservation.');
+      return;
+    }
+
     setLoading(true);
 
     try {
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
-        data.append(key, key === 'num_tickets' ? Number(formData[key]) : formData[key]);
+        if (!['num_standard', 'num_premium', 'num_alumni', 'ticket_type', 'num_tickets'].includes(key)) {
+          data.append(key, formData[key]);
+        }
       });
+      data.append('ticket_type', final_ticket_type);
+      data.append('num_tickets', final_num_tickets);
       data.append('payment_slip', paymentSlip);
 
       // Call our backend API
@@ -157,7 +191,9 @@ export default function TicketForm({ isOpen, onClose }) {
         faculty: '',
         department: '',
         ticket_type: 'Standard',
-        num_tickets: 1,
+        num_standard: 0,
+        num_premium: 0,
+        num_alumni: 1,
       });
       setPaymentSlip(null);
       setSuccess(true);
@@ -195,13 +231,6 @@ export default function TicketForm({ isOpen, onClose }) {
               </p>
             </div>
 
-            {/* Error Banner */}
-            {error && (
-              <div className="p-4 bg-red-950/40 border border-red-500/30 rounded-xl text-red-400 text-sm flex items-center gap-2">
-                <svg className="w-5 h-5 shrink-0 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                <span>{error}</span>
-              </div>
-            )}
 
             {/* Fields: Phase 1 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -317,15 +346,15 @@ export default function TicketForm({ isOpen, onClose }) {
                     <div className="flex items-center justify-between bg-[#1a1d1d] border border-white/5 rounded-xl px-3 py-2">
                       <button 
                         type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_tickets: Math.max(1, Number(prev.num_tickets) - 1) }))}
+                        onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.max(1, Number(prev.num_alumni) - 1) }))}
                         className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
                       </button>
-                      <span className="text-sm font-bold text-white">{formData.num_tickets}</span>
+                      <span className="text-sm font-bold text-white">{formData.num_alumni || 1}</span>
                       <button 
                         type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_tickets: Math.min(10, Number(prev.num_tickets) + 1) }))}
+                        onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.min(10, Number(prev.num_alumni) + 1) }))}
                         className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
@@ -335,57 +364,54 @@ export default function TicketForm({ isOpen, onClose }) {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-1.5">Choose Ticket Category *</label>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Standard Card */}
-                    <div 
-                      onClick={() => setFormData(prev => ({ ...prev, ticket_type: 'Standard' }))}
-                      className={`cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between h-28 ${
-                        formData.ticket_type === 'Standard' 
-                          ? 'border-green-500 bg-green-500/5 shadow-[0_0_15px_rgba(34,255,68,0.1)]' 
-                          : 'border-white/5 bg-[#1e2020] hover:border-white/20'
-                      }`}
-                    >
+                  <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-1.5">Choose Tickets *</label>
+                  <div className="space-y-3">
+                    {/* Standard Ticket Row */}
+                    <div className="flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl">
                       <div>
                         <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Standard Offer</span>
                         <h4 className="text-md font-bold text-white mt-0.5">Standard Ticket</h4>
+                        <span className="text-sm font-black text-green-400">Rs. 1200.00</span>
                       </div>
-                      <span className="text-lg font-black text-green-400">Rs. 1200.00</span>
-                    </div>
-
-                    {/* Premium Card */}
-                    <div 
-                      onClick={() => setFormData(prev => ({ ...prev, ticket_type: 'Premium' }))}
-                      className={`cursor-pointer p-4 rounded-2xl border-2 transition-all flex flex-col justify-between h-28 ${
-                        formData.ticket_type === 'Premium' 
-                          ? 'border-green-500 bg-green-500/5 shadow-[0_0_15px_rgba(34,255,68,0.1)]' 
-                          : 'border-white/5 bg-[#1e2020] hover:border-white/20'
-                      }`}
-                    >
-                      <div>
-                        <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">VIP Access</span>
-                        <h4 className="text-md font-bold text-white mt-0.5">Premium Ticket</h4>
-                      </div>
-                      <span className="text-lg font-black text-green-400">Rs. 1600.00</span>
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end pt-2">
-                    <div className="w-full md:w-40">
-                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Number of Tickets</label>
-                      <div className="flex items-center justify-between bg-[#1e2020] border border-white/5 rounded-xl px-3 py-2.5">
+                      <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
                         <button 
                           type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_tickets: Math.max(1, Number(prev.num_tickets) - 1) }))}
-                          className="text-gray-400 hover:text-white p-1.5 hover:bg-white/5 rounded"
+                          onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.max(0, Number(prev.num_standard) - 1) }))}
+                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
                         </button>
-                        <span className="text-sm font-bold text-white px-2">{formData.num_tickets}</span>
+                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_standard || 0}</span>
                         <button 
                           type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_tickets: Math.min(10, Number(prev.num_tickets) + 1) }))}
-                          className="text-gray-400 hover:text-white p-1.5 hover:bg-white/5 rounded"
+                          onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.min(10, Number(prev.num_standard) + 1) }))}
+                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Premium Ticket Row */}
+                    <div className="flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl">
+                      <div>
+                        <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">VIP Access</span>
+                        <h4 className="text-md font-bold text-white mt-0.5">Premium Ticket</h4>
+                        <span className="text-sm font-black text-green-400">Rs. 1600.00</span>
+                      </div>
+                      <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
+                        <button 
+                          type="button" 
+                          onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.max(0, Number(prev.num_premium) - 1) }))}
+                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
+                        </button>
+                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_premium || 0}</span>
+                        <button 
+                          type="button" 
+                          onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.min(10, Number(prev.num_premium) + 1) }))}
+                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
                         </button>
@@ -480,6 +506,14 @@ export default function TicketForm({ isOpen, onClose }) {
                 )}
               </div>
             </div>
+
+            {/* Error Banner */}
+            {error && (
+              <div className="p-4 bg-red-950/40 border border-red-500/30 rounded-xl text-red-400 text-sm flex items-center gap-2">
+                <svg className="w-5 h-5 shrink-0 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>{error}</span>
+              </div>
+            )}
 
             {/* Action Buttons */}
             <div className="flex gap-4 border-t border-white/5 pt-6">
