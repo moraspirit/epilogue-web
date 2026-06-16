@@ -135,7 +135,7 @@ export default function TicketForm({ isOpen, onClose }) {
       data.append('payment_slip', paymentSlip);
 
       // Call our backend API
-      const response = await fetch('/api/tickets/reserve', {
+      const response = await fetch('https://ticket.moraspirit.com/api/tickets/reserve', {
         method: 'POST',
         body: data,
       });
