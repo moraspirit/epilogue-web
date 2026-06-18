@@ -23,11 +23,11 @@ export default function Experience() {
   ];
 
   return (
-    <div id="experience">
+    <div id="experience" className="bg-[#0c0f0f]">
       <Scene duration="250vh" pin={true}>
         {(progress) => {
           // Title Animation (Fade and Zoom out)
-          const titleOpacity = progress < 0.1 ? progress * 10 : progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+          const titleOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
           const titleScale = progress < 0.1 ? 1.5 - progress * 5 : 1;
           const titleY = progress > 0.85 ? -(progress - 0.85) * 500 : 0;
 

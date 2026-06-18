@@ -8,16 +8,16 @@ export default function Lineup() {
       <Scene duration="300vh" pin={true}>
         {(progress) => {
           // Title fade in/out
-          const titleOpacity = progress < 0.1 ? progress * 10 : progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 10) : 1;
+          const titleOpacity = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 10) : 1;
           const titleY = progress < 0.1 ? 50 - progress * 500 : progress > 0.8 ? -(progress - 0.8) * 500 : 0;
 
           // Band card animates in from left
           const cardX = progress < 0.2 ? -100 + progress * 500 : progress > 0.8 ? -(progress - 0.8) * 1000 : 0;
-          const cardOpacity = progress < 0.15 ? progress * 6.6 : progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
+          const cardOpacity = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
 
           // Info animates in from right
           const infoX = progress < 0.3 ? 100 - (progress - 0.1) * 500 : progress > 0.8 ? (progress - 0.8) * 1000 : 0;
-          const infoOpacity = progress < 0.2 ? 0 : progress < 0.3 ? (progress - 0.2) * 10 : progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
+          const infoOpacity = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
 
           return (
             <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-container-max mx-auto">
@@ -82,21 +82,22 @@ export default function Lineup() {
       </Scene>
 
       {/* ──── SCENE 2: ARTIST LINEUP ──── */}
-      <Scene duration="300vh" pin={true}>
-        {(progress) => {
-          // Lineup Title
-          const titleOpacity = progress < 0.1 ? progress * 10 : progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
-          const titleScale = progress < 0.1 ? 0.8 + progress * 2 : 1;
-          
-          // Cards come up from bottom
-          const card1Y = progress < 0.2 ? 200 - progress * 1000 : progress > 0.8 ? -(progress - 0.8) * 1000 : 0;
-          const card1Opacity = progress < 0.15 ? 0 : progress < 0.25 ? (progress - 0.15) * 10 : progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
+      <div className="relative z-10 -mt-[100vh] bg-surface-container-lowest shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+        <Scene duration="300vh" pin={true}>
+          {(progress) => {
+            // Lineup Title
+            const titleOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+            const titleScale = progress < 0.1 ? 0.8 + progress * 2 : 1;
+            
+            // Cards come up from bottom
+            const card1Y = progress < 0.2 ? 200 - progress * 1000 : progress > 0.8 ? -(progress - 0.8) * 1000 : 0;
+            const card1Opacity = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) * 5) : 1;
 
-          const card2Y = progress < 0.3 ? 200 - (progress - 0.1) * 1000 : progress > 0.85 ? -(progress - 0.85) * 1000 : 0;
-          const card2Opacity = progress < 0.25 ? 0 : progress < 0.35 ? (progress - 0.25) * 10 : progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 5) : 1;
+            const card2Y = progress < 0.3 ? 200 - (progress - 0.1) * 1000 : progress > 0.85 ? -(progress - 0.85) * 1000 : 0;
+            const card2Opacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 5) : 1;
 
-          return (
-            <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-container-max mx-auto border-t border-outline-variant/10">
+            return (
+              <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-container-max mx-auto border-t border-outline-variant/10">
               <div 
                 className="mb-12 sm:mb-16"
                 style={{
@@ -190,7 +191,8 @@ export default function Lineup() {
             </section>
           );
         }}
-      </Scene>
+        </Scene>
+      </div>
     </div>
   );
 }

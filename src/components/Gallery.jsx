@@ -133,11 +133,11 @@ export default function Gallery({ galleryImages, openLightbox }) {
         {(progress) => {
           // Title slides in from left
           const titleX = progress < 0.15 ? -200 + (progress / 0.15) * 200 : progress > 0.85 ? -(progress - 0.85) * 1500 : 0;
-          const titleOpacity = progress < 0.15 ? progress / 0.15 : progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+          const titleOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
           
           // Slider slides in from right
           const sliderX = progress < 0.15 ? 200 - (progress / 0.15) * 200 : progress > 0.85 ? (progress - 0.85) * 1500 : 0;
-          const sliderOpacity = progress < 0.15 ? progress / 0.15 : progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+          const sliderOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
 
           return (
             <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-[100vw] mx-auto border-t border-outline-variant/10">
