@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
-import lottie from 'lottie-web';
+import { useState } from 'react';
 
 /* ─── Flying Music Notes Component (Pure CSS 3D Effect) ─── */
 function FlyingNotes() {
@@ -54,43 +53,7 @@ function FlyingNotes() {
 
 /* ─── Loader Component ─── */
 export default function Loader({ loading, splitLoader, loadProgress }) {
-  const lottieContainer1 = useRef(null);
-  const lottieContainer2 = useRef(null);
-
-  useEffect(() => {
-    let anim1;
-    let anim2;
-    if (loading && lottieContainer1.current && lottieContainer2.current) {
-      try {
-        anim1 = lottie.loadAnimation({
-          container: lottieContainer1.current,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          path: `${import.meta.env.BASE_URL}56a034a2-116d-11ee-ade5-efd77f21c859.json`,
-        });
-      } catch (err) {
-        console.error("Lottie 1 load error:", err);
-      }
-
-      try {
-        anim2 = lottie.loadAnimation({
-          container: lottieContainer2.current,
-          renderer: 'svg',
-          loop: true,
-          autoplay: true,
-          path: `${import.meta.env.BASE_URL}e3be30c2-1150-11ee-9de2-dfa41e0fb27e.json`,
-        });
-      } catch (err) {
-        console.error("Lottie 2 load error:", err);
-      }
-    }
-    return () => {
-      if (anim1) anim1.destroy();
-      if (anim2) anim2.destroy();
-    };
-  }, [loading]);
-
+  
   if (!loading) return null;
 
   return (
@@ -98,11 +61,7 @@ export default function Loader({ loading, splitLoader, loadProgress }) {
       <div id="loader-top"></div>
       <div id="loader-bottom"></div>
       
-      {/* Fullscreen Lottie Background Overlay */}
-      <div className="lottie-backdrop-container">
-        <div ref={lottieContainer1} className="lottie-visualizer-bg"></div>
-        <div ref={lottieContainer2} className="lottie-notes-bg"></div>
-      </div>
+      
 
       {/* Immersive CSS-based 3D Flying Musical Notes Loader */}
       <FlyingNotes />

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Lineup() {
   return (
-    <div className="bg-surface-container-lowest" id="lineup">
+    <div className="bg-surface-container-lowest -mt-[100vh] relative z-10" id="lineup">
       {/* ──── SCENE 1: HEADLINING ──── */}
       <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-container-max mx-auto">
         <h2 

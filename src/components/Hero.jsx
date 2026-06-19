@@ -96,34 +96,35 @@ export default function Hero() {
   }, []);
 
   return (
-    <Scene duration="400vh" pin={true}>
+    <Scene duration="200vh" pin={true}>
       {(progress) => {
-        // Calculate transforms/opacities based on progress (0 -> 1)
-        // With 400vh duration, the user scrolls for 3 screens to complete this.
-        
+        // We only use the first half of progress for the fade animation (0 -> 0.5)
+        // because the second half (0.5 -> 1.0) is when Lineup slides over us.
+        const animProgress = Math.min(1, progress * 2);
+
         // Background video scales down heavily and blurs
-        const videoScale = 1 - progress * 0.4; // 1 to 0.6
-        const videoOpacity = Math.max(0, 0.4 - progress * 0.4);
-        const videoBlur = progress * 20;
+        const videoScale = 1 - animProgress * 0.4; // 1 to 0.6
+        const videoOpacity = Math.max(0, 0.4 - animProgress * 0.4);
+        const videoBlur = animProgress * 20;
 
         // Band cutout pushes out 3D, shifts to center, gets larger
-        const bandY = -progress * 250;
-        const bandX = -progress * 400; // Moves left towards the center
-        const bandScale = 1 + progress * 0.5; // Scale up to feel like zooming past
-        const bandOpacity = Math.max(0, 1 - progress * 1.2);
+        const bandY = -animProgress * 250;
+        const bandX = -animProgress * 400; // Moves left towards the center
+        const bandScale = 1 + animProgress * 0.5; // Scale up to feel like zooming past
+        const bandOpacity = Math.max(0, 1 - animProgress * 1.2);
         
-        // Text Content moves up and fades out
-        const contentY = -progress * 300;
-        const contentScale = 1 - progress * 0.1;
-        const contentOpacity = Math.max(0, 1 - progress * 1.5);
+        // Text Content stays mostly pinned but fades out
+        const contentY = -animProgress * 300;
+        const contentScale = 1 - animProgress * 0.1;
+        const contentOpacity = Math.max(0, 1 - animProgress * 1.5);
 
-        // Mobile Band Image scales up and fades out
-        const mobileBandScale = 1 + progress * 0.8;
-        const mobileBandY = -progress * 150;
-        const mobileBandOpacity = Math.max(0, 1 - progress * 1.2);
+        // Mobile Band Image stays visually pinned, scales up and fades out
+        const mobileBandScale = 1 + animProgress * 0.8;
+        const mobileBandY = -animProgress * 150;
+        const mobileBandOpacity = Math.max(0, 1 - animProgress * 1.2);
 
         return (
-          <section ref={heroRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#0c0f0f] w-full" id="hero-section">
+          <section ref={heroRef} className="relative min-h-screen flex items-center pt-24 overflow-hidden bg-[#0c0f0f] w-full z-0" id="hero-section">
             <div ref={cursorRef} id="cursor-glow"></div>
             
             {/* Background Video Player */}
@@ -154,29 +155,34 @@ export default function Hero() {
                 className="absolute right-0 lg:right-[8%] bottom-0 w-[450px] h-[450px] bg-gradient-to-tr from-green-500/15 to-cyan-500/15 rounded-full blur-[100px] transition-transform duration-300 ease-out"
               />
               
-              {/* Entry Transition Wrapper + Parallax Wrapper */}
+              {/* Entry Transition Wrapper */}
               <div 
-                className={`band-image-wrapper ${
+                className={`absolute inset-0 w-full h-full flex items-end justify-end band-image-wrapper ${
                   bandImageLoaded ? 'opacity-100 translate-y-0 scale-100 transition-all duration-[1200ms] ease-out' : 'opacity-0 translate-y-8 scale-95'
                 }`}
-                style={{
-                  transform: `translate(${bandX}px, ${bandY}px) scale(${bandScale})`,
-                  opacity: bandImageLoaded ? bandOpacity : 0,
-                  willChange: 'transform, opacity'
-                }}
               >
-                {/* Cutout Image of Band Members with 3D Parallax */}
-                <img
-                  ref={bandRef}
-                  src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
-                  alt="Daddy Band Members"
-                  onLoad={() => setBandImageLoaded(true)}
-                  className="relative max-h-[80vh] md:max-h-[85vh] object-contain w-auto right-0 lg:right-[2%] bottom-[-5%] transition-transform duration-300 ease-out drop-shadow-[0_20px_50px_rgba(34,255,68,0.15)] filter saturate-[1.1]"
+                {/* Parallax Wrapper */}
+                <div
                   style={{
-                    transformStyle: 'preserve-3d',
-                    willChange: 'transform'
+                    transform: `translate(${bandX}px, ${bandY}px) scale(${bandScale})`,
+                    opacity: bandOpacity,
+                    willChange: 'transform, opacity'
                   }}
-                />
+                  className="relative w-full h-full flex items-end justify-end pointer-events-none"
+                >
+                  {/* Cutout Image of Band Members with 3D Parallax */}
+                  <img
+                    ref={bandRef}
+                    src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
+                    alt="Daddy Band Members"
+                    onLoad={() => setBandImageLoaded(true)}
+                    className="relative max-h-[80vh] md:max-h-[85vh] object-contain w-auto right-0 lg:right-[2%] bottom-[-5%] transition-transform duration-300 ease-out drop-shadow-[0_20px_50px_rgba(34,255,68,0.15)] filter saturate-[1.1]"
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      willChange: 'transform'
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
