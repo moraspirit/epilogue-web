@@ -125,32 +125,22 @@ function App() {
       />
 
       {/* ──── CINEMATIC HERO ──── */}
-      <div className="relative z-0">
-        <Hero />
-      </div>
+      <Hero />
 
       {/* ──── LINEUP SECTION ──── */}
-      <div className="relative z-10 -mt-[100vh]">
-        <Lineup />
-      </div>
+      <Lineup />
 
       {/* ──── GALLERY SECTION ──── */}
-      <div className="relative z-20 -mt-[100vh] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        <Gallery 
-          galleryImages={galleryImages} 
-          openLightbox={openLightbox} 
-        />
-      </div>
+      <Gallery 
+        galleryImages={galleryImages} 
+        openLightbox={openLightbox} 
+      />
 
       {/* ──── EXPERIENCE SECTION ──── */}
-      <div className="relative z-30 -mt-[100vh] shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        <Experience />
-      </div>
+      <Experience />
 
       {/* ──── ORGANIZER SECTION ──── */}
-      <div className="relative z-40 -mt-[100vh] bg-surface-container-lowest shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
-        <Organizer />
-      </div>
+      <Organizer />
 
       {/* ──── FOOTER ──── */}
       <Footer />

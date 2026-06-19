@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Scene } from 'react-kino';
 
 export default function Gallery({ galleryImages, openLightbox }) {
   const sliderRef = useRef(null);
@@ -129,104 +128,78 @@ export default function Gallery({ galleryImages, openLightbox }) {
 
   return (
     <div className="bg-surface-container-lowest" id="gallery">
-      <Scene duration="200vh" pin={true}>
-        {(progress) => {
-          // Title slides in from left
-          const titleX = progress < 0.15 ? -200 + (progress / 0.15) * 200 : progress > 0.85 ? -(progress - 0.85) * 1500 : 0;
-          const titleOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+      <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-[100vw] mx-auto border-t border-outline-variant/10">
+        <div className="max-w-container-max mx-auto relative px-4 w-full">
+          <h2 
+            className="reveal font-display-lg text-4xl sm:text-6xl lg:text-display-lg mb-8 sm:mb-12 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative"
+          >
+            THE GALLERY
+            <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 text-lg sm:text-2xl lg:text-headline-md tracking-normal font-sans">THE GALLERY</span>
+          </h2>
           
-          // Slider slides in from right
-          const sliderX = progress < 0.15 ? 200 - (progress / 0.15) * 200 : progress > 0.85 ? (progress - 0.85) * 1500 : 0;
-          const sliderOpacity = progress > 0.85 ? Math.max(0, 1 - (progress - 0.85) * 6.6) : 1;
+          {/* Horizontal Slider Wrapper */}
+          <div className="reveal relative w-full group/slider">
+            {/* Navigation Arrows (Desktop Only) */}
+            <button 
+              onClick={scrollLeft}
+              className="absolute left-[-12px] md:left-[-24px] top-1/2 transform -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-green-700 dark:hover:bg-primary-container text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex border border-white/10"
+              aria-label="Previous slide"
+            >
+              <span className="material-symbols-outlined !text-base">arrow_back_ios_new</span>
+            </button>
+            
+            <button 
+              onClick={scrollRight}
+              className="absolute right-[-12px] md:right-[-24px] top-1/2 transform -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-green-700 dark:hover:bg-primary-container text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex border border-white/10"
+              aria-label="Next slide"
+            >
+              <span className="material-symbols-outlined !text-base">arrow_forward_ios</span>
+            </button>
 
-          return (
-            <section className="relative min-h-screen flex flex-col justify-center px-4 md:px-gutter overflow-hidden w-full max-w-[100vw] mx-auto border-t border-outline-variant/10">
-              <div className="max-w-container-max mx-auto relative px-4 w-full">
-                <h2 
-                  className="font-display-lg text-4xl sm:text-6xl lg:text-display-lg mb-8 sm:mb-12 text-center text-gray-900/10 dark:text-on-surface/10 uppercase tracking-widest font-extrabold relative"
-                  style={{
-                    opacity: titleOpacity,
-                    transform: `translateX(${titleX}px)`,
-                    willChange: 'transform, opacity'
-                  }}
-                >
-                  THE GALLERY
-                  <span className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-900 dark:text-white opacity-100 text-lg sm:text-2xl lg:text-headline-md tracking-normal font-sans">THE GALLERY</span>
-                </h2>
-                
-                {/* Horizontal Slider Wrapper */}
-                <div 
-                  className="relative w-full group/slider"
-                  style={{
-                    opacity: sliderOpacity,
-                    transform: `translateX(${sliderX}px)`,
-                    willChange: 'transform, opacity'
-                  }}
-                >
-                  {/* Navigation Arrows (Desktop Only) */}
-                  <button 
-                    onClick={scrollLeft}
-                    className="absolute left-[-12px] md:left-[-24px] top-1/2 transform -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-green-700 dark:hover:bg-primary-container text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex border border-white/10"
-                    aria-label="Previous slide"
-                  >
-                    <span className="material-symbols-outlined !text-base">arrow_back_ios_new</span>
-                  </button>
-                  
-                  <button 
-                    onClick={scrollRight}
-                    className="absolute right-[-12px] md:right-[-24px] top-1/2 transform -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/60 hover:bg-green-700 dark:hover:bg-primary-container text-white flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 opacity-0 group-hover/slider:opacity-100 hidden md:flex border border-white/10"
-                    aria-label="Next slide"
-                  >
-                    <span className="material-symbols-outlined !text-base">arrow_forward_ios</span>
-                  </button>
-
-                  {/* Scrollable Container */}
+            {/* Scrollable Container */}
+            <div 
+              ref={sliderRef}
+              onScroll={handleScroll}
+              onMouseEnter={() => setIsSliderPaused(true)}
+              onMouseLeave={() => setIsSliderPaused(false)}
+              onTouchStart={() => setIsSliderPaused(true)}
+              onTouchEnd={() => setIsSliderPaused(false)}
+              className="flex overflow-x-auto gap-6 snap-x snap-mandatory pb-10 sm:pb-12 md:pb-14 lg:pb-16 pt-10 sm:pt-12 md:pt-14 lg:pt-16 hide-scrollbar cursor-grab active:cursor-grabbing"
+              style={{
+                scrollbarWidth: 'none', /* Firefox */
+                msOverflowStyle: 'none', /* IE/Edge */
+              }}
+            >
+              {extendedImages.map((img, idx) => {
+                const baseIndex = idx % galleryImages.length;
+                const isActive = idx === activeIndex;
+                return (
                   <div 
-                    ref={sliderRef}
-                    onScroll={handleScroll}
-                    onMouseEnter={() => setIsSliderPaused(true)}
-                    onMouseLeave={() => setIsSliderPaused(false)}
-                    onTouchStart={() => setIsSliderPaused(true)}
-                    onTouchEnd={() => setIsSliderPaused(false)}
-                    className="flex overflow-x-auto gap-6 snap-x snap-mandatory pb-10 sm:pb-12 md:pb-14 lg:pb-16 pt-10 sm:pt-12 md:pt-14 lg:pt-16 hide-scrollbar cursor-grab active:cursor-grabbing"
-                    style={{
-                      scrollbarWidth: 'none', /* Firefox */
-                      msOverflowStyle: 'none', /* IE/Edge */
-                    }}
+                    key={idx} 
+                    onClick={() => openLightbox(baseIndex)}
+                    className={`flex-shrink-0 w-[72vw] sm:w-[50vw] md:w-[35vw] lg:w-[28vw] snap-center relative cursor-pointer overflow-hidden rounded-2xl glass-panel border transition-all duration-500 ${
+                      isActive 
+                        ? 'border-green-400 dark:border-primary-container shadow-[0_0_30px_rgba(34,255,68,0.35)] sm:shadow-[0_0_50px_rgba(34,255,68,0.45),_0_20px_40px_rgba(34,255,68,0.25)] scale-[1.1] sm:scale-[1.15] md:scale-[1.2] lg:scale-[1.25] -translate-y-3 sm:-translate-y-5 md:-translate-y-6 lg:-translate-y-8 z-10 opacity-100' 
+                        : 'border-outline-variant/10 scale-[0.9] translate-y-0 z-0 opacity-35 shadow-sm'
+                    }`}
                   >
-                    {extendedImages.map((img, idx) => {
-                      const baseIndex = idx % galleryImages.length;
-                      const isActive = idx === activeIndex;
-                      return (
-                        <div 
-                          key={idx} 
-                          onClick={() => openLightbox(baseIndex)}
-                          className={`flex-shrink-0 w-[72vw] sm:w-[50vw] md:w-[35vw] lg:w-[28vw] snap-center relative cursor-pointer overflow-hidden rounded-2xl glass-panel border ${
-                            isActive 
-                              ? 'border-green-400 dark:border-primary-container shadow-[0_0_30px_rgba(34,255,68,0.35)] sm:shadow-[0_0_50px_rgba(34,255,68,0.45),_0_20px_40px_rgba(34,255,68,0.25)] scale-[1.1] sm:scale-[1.15] md:scale-[1.2] lg:scale-[1.25] -translate-y-3 sm:-translate-y-5 md:-translate-y-6 lg:-translate-y-8 z-10 opacity-100 transition-all duration-500' 
-                              : 'border-outline-variant/10 scale-[0.9] translate-y-0 z-0 opacity-35 shadow-sm'
-                          }`}
-                        >
-                          <div className="aspect-[4/3] w-full overflow-hidden bg-black/25">
-                            <img 
-                              src={img.src} 
-                              alt={img.alt} 
-                              className={`w-full h-full object-cover hover:scale-110 saturate-[0.8] hover:saturate-[1.2] ${
-                                isActive ? 'brightness-125 contrast-110 saturate-[1.15] transition-all duration-700' : 'brightness-50 saturate-[0.6]'
-                              }`}
-                              loading="lazy"
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
+                    <div className="aspect-[4/3] w-full overflow-hidden bg-black/25">
+                      <img 
+                        src={img.src} 
+                        alt={img.alt} 
+                        className={`w-full h-full object-cover transition-all duration-700 hover:scale-110 saturate-[0.8] hover:saturate-[1.2] ${
+                          isActive ? 'brightness-125 contrast-110 saturate-[1.15]' : 'brightness-50 saturate-[0.6]'
+                        }`}
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
-                </div>
-              </div>
-            </section>
-          );
-        }}
-      </Scene>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
