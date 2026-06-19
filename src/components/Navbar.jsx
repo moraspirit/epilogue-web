@@ -59,8 +59,8 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
       </nav>
 
       {/* Mobile Drawer Navigation */}
-      <div className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-md transition-opacity duration-300 md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
-        <div className={`fixed right-0 top-0 bottom-0 w-[280px] bg-white/95 dark:bg-surface-container-lowest/95 backdrop-blur-2xl shadow-2xl p-6 flex flex-col pt-8 gap-6 border-l border-gray-200/50 dark:border-white/10 transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`fixed inset-0 z-[60] bg-black/60 backdrop-blur-md md:hidden ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto transition-opacity duration-300' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMobileMenuOpen(false)}>
+        <div className={`fixed right-0 top-0 bottom-0 w-[280px] bg-white/95 dark:bg-surface-container-lowest/95 backdrop-blur-2xl shadow-2xl p-6 flex flex-col pt-8 gap-6 border-l border-gray-200/50 dark:border-white/10 ${isMobileMenuOpen ? 'translate-x-0 transition-transform duration-300 ease-out' : 'translate-x-full'}`} onClick={(e) => e.stopPropagation()}>
           {/* Drawer Title & Close Button */}
           <div className="flex justify-between items-center mb-2 border-b border-gray-200/30 dark:border-white/5 pb-4">
             <span className="font-headline-md text-lg text-gray-900 dark:text-primary-fixed">MENU</span>

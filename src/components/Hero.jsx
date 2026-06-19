@@ -156,8 +156,8 @@ export default function Hero() {
               
               {/* Entry Transition Wrapper + Parallax Wrapper */}
               <div 
-                className={`transition-all duration-[1200ms] ease-out band-image-wrapper ${
-                  bandImageLoaded ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
+                className={`band-image-wrapper ${
+                  bandImageLoaded ? 'opacity-100 translate-y-0 scale-100 transition-all duration-[1200ms] ease-out' : 'opacity-0 translate-y-8 scale-95'
                 }`}
                 style={{
                   transform: `translate(${bandX}px, ${bandY}px) scale(${bandScale})`,

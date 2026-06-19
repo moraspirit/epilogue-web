@@ -201,9 +201,9 @@ export default function Gallery({ galleryImages, openLightbox }) {
                         <div 
                           key={idx} 
                           onClick={() => openLightbox(baseIndex)}
-                          className={`flex-shrink-0 w-[72vw] sm:w-[50vw] md:w-[35vw] lg:w-[28vw] snap-center relative cursor-pointer overflow-hidden rounded-2xl glass-panel border transition-all duration-500 ${
+                          className={`flex-shrink-0 w-[72vw] sm:w-[50vw] md:w-[35vw] lg:w-[28vw] snap-center relative cursor-pointer overflow-hidden rounded-2xl glass-panel border ${
                             isActive 
-                              ? 'border-green-400 dark:border-primary-container shadow-[0_0_30px_rgba(34,255,68,0.35)] sm:shadow-[0_0_50px_rgba(34,255,68,0.45),_0_20px_40px_rgba(34,255,68,0.25)] scale-[1.1] sm:scale-[1.15] md:scale-[1.2] lg:scale-[1.25] -translate-y-3 sm:-translate-y-5 md:-translate-y-6 lg:-translate-y-8 z-10 opacity-100' 
+                              ? 'border-green-400 dark:border-primary-container shadow-[0_0_30px_rgba(34,255,68,0.35)] sm:shadow-[0_0_50px_rgba(34,255,68,0.45),_0_20px_40px_rgba(34,255,68,0.25)] scale-[1.1] sm:scale-[1.15] md:scale-[1.2] lg:scale-[1.25] -translate-y-3 sm:-translate-y-5 md:-translate-y-6 lg:-translate-y-8 z-10 opacity-100 transition-all duration-500' 
                               : 'border-outline-variant/10 scale-[0.9] translate-y-0 z-0 opacity-35 shadow-sm'
                           }`}
                         >
@@ -211,8 +211,8 @@ export default function Gallery({ galleryImages, openLightbox }) {
                             <img 
                               src={img.src} 
                               alt={img.alt} 
-                              className={`w-full h-full object-cover transition-all duration-700 hover:scale-110 saturate-[0.8] hover:saturate-[1.2] ${
-                                isActive ? 'brightness-125 contrast-110 saturate-[1.15]' : 'brightness-50 saturate-[0.6]'
+                              className={`w-full h-full object-cover hover:scale-110 saturate-[0.8] hover:saturate-[1.2] ${
+                                isActive ? 'brightness-125 contrast-110 saturate-[1.15] transition-all duration-700' : 'brightness-50 saturate-[0.6]'
                               }`}
                               loading="lazy"
                             />
