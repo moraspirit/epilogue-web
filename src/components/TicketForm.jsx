@@ -331,86 +331,84 @@ export default function TicketForm({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* Branching Category & Quantity */}
-            {formData.batch && (
-              <div className="border-t border-white/5 pt-6">
-              {formData.batch === 'Alumni' ? (
-                <div className="bg-green-950/20 border border-green-500/10 p-5 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            {/* Ticket Selection — always visible */}
+            <div className="border-t border-white/5 pt-6">
+              <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-3">Choose Tickets *</label>
+              <div className="space-y-3">
+                {/* Standard Ticket Row — always visible */}
+                <div className={`flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl ${formData.batch === 'Alumni' ? 'opacity-40 pointer-events-none' : ''}`}>
                   <div>
-                    <span className="text-xs font-bold font-mono tracking-widest text-green-400 uppercase">Alumni Offer</span>
-                    <h4 className="text-lg font-bold text-white mt-1">Alumni Ticket</h4>
-                    <p className="text-sm text-gray-400 mt-0.5">Price: Rs. 2300.00 per Ticket</p>
+                    <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Standard Offer</span>
+                    <h4 className="text-md font-bold text-white mt-0.5">Standard Ticket</h4>
+                    <span className="text-sm font-black text-green-400">Rs. 1200.00</span>
                   </div>
-                  <div className="w-full md:w-32">
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Quantity</label>
-                    <div className="flex items-center justify-between bg-[#1a1d1d] border border-white/5 rounded-xl px-3 py-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.max(1, Number(prev.num_alumni) - 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                      </button>
-                      <span className="text-sm font-bold text-white">{formData.num_alumni || 1}</span>
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.min(10, Number(prev.num_alumni) + 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                      </button>
-                    </div>
+                  <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
+                    <button 
+                      type="button" 
+                      onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.max(0, Number(prev.num_standard) - 1) }))}
+                      className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
+                    </button>
+                    <span className="text-sm font-bold text-white w-8 text-center">{formData.num_standard || 0}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.min(10, Number(prev.num_standard) + 1) }))}
+                      className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
+                    </button>
                   </div>
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-1.5">Choose Tickets *</label>
-                  <div className="space-y-3">
-                    {/* Standard Ticket Row */}
-                    <div className="flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl">
-                      <div>
-                        <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Standard Offer</span>
-                        <h4 className="text-md font-bold text-white mt-0.5">Standard Ticket</h4>
-                        <span className="text-sm font-black text-green-400">Rs. 1200.00</span>
-                      </div>
-                      <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.max(0, Number(prev.num_standard) - 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                        </button>
-                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_standard || 0}</span>
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_standard: Math.min(10, Number(prev.num_standard) + 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                        </button>
-                      </div>
-                    </div>
 
-                    {/* Premium Ticket Row */}
-                    <div className="flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl">
-                      <div>
-                        <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">VIP Access</span>
-                        <h4 className="text-md font-bold text-white mt-0.5">Premium Ticket</h4>
-                        <span className="text-sm font-black text-green-400">Rs. 1600.00</span>
-                      </div>
-                      <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
+                {/* Premium Ticket Row — always visible */}
+                <div className={`flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl ${formData.batch === 'Alumni' ? 'opacity-40 pointer-events-none' : ''}`}>
+                  <div>
+                    <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">VIP Access</span>
+                    <h4 className="text-md font-bold text-white mt-0.5">Premium Ticket</h4>
+                    <span className="text-sm font-black text-green-400">Rs. 1600.00</span>
+                  </div>
+                  <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
+                    <button 
+                      type="button" 
+                      onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.max(0, Number(prev.num_premium) - 1) }))}
+                      className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
+                    </button>
+                    <span className="text-sm font-bold text-white w-8 text-center">{formData.num_premium || 0}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.min(10, Number(prev.num_premium) + 1) }))}
+                      className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Alumni Ticket Row — only when Alumni batch is selected */}
+                {formData.batch === 'Alumni' && (
+                  <div className="bg-green-950/20 border border-green-500/10 p-5 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                      <span className="text-xs font-bold font-mono tracking-widest text-green-400 uppercase">Alumni Offer</span>
+                      <h4 className="text-lg font-bold text-white mt-1">Alumni Ticket</h4>
+                      <p className="text-sm text-gray-400 mt-0.5">Price: Rs. 2300.00 per Ticket</p>
+                    </div>
+                    <div className="w-full md:w-32">
+                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Quantity</label>
+                      <div className="flex items-center justify-between bg-[#1a1d1d] border border-white/5 rounded-xl px-3 py-2">
                         <button 
                           type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.max(0, Number(prev.num_premium) - 1) }))}
+                          onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.max(1, Number(prev.num_alumni) - 1) }))}
                           className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
                         </button>
-                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_premium || 0}</span>
+                        <span className="text-sm font-bold text-white">{formData.num_alumni || 1}</span>
                         <button 
                           type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_premium: Math.min(10, Number(prev.num_premium) + 1) }))}
+                          onClick={() => setFormData(prev => ({ ...prev, num_alumni: Math.min(10, Number(prev.num_alumni) + 1) }))}
                           className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
@@ -418,10 +416,9 @@ export default function TicketForm({ isOpen, onClose }) {
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
               </div>
-            )}
+            </div>
 
             {/* Total Price Display */}
             <div className="bg-[#1e2020] border border-white/5 p-4 rounded-2xl flex justify-between items-center">
