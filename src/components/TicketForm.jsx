@@ -315,6 +315,7 @@ export default function TicketForm({ isOpen, onClose }) {
                   <option value="Faculty of Medicine">Faculty of Medicine</option>
                   <option value="Faculty of Architecture">Faculty of Architecture</option>
                   <option value="Faculty of IT">Faculty of IT</option>
+                  <option value="NDT">NDT</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
