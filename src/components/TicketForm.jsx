@@ -581,10 +581,6 @@ export default function TicketForm({ isOpen, onClose }) {
                   </svg>
                   Join WhatsApp Group
                 </a>
-              </div>
-              <p className="text-xs text-gray-500 mt-4">
-                Once approved, your e-ticket with a secure verification QR code will be sent to the email address: <strong>{formData.email}</strong>.
-              </p>
             </div>
             <button 
               onClick={() => {
