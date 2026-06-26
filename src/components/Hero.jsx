@@ -179,7 +179,9 @@ export default function Hero() {
                     className="relative max-h-[80vh] md:max-h-[85vh] object-contain w-auto right-0 lg:right-[2%] bottom-[-5%] transition-transform duration-300 ease-out drop-shadow-[0_20px_50px_rgba(34,255,68,0.15)] filter saturate-[1.1]"
                     style={{
                       transformStyle: 'preserve-3d',
-                      willChange: 'transform'
+                      willChange: 'transform',
+                      maskImage: 'linear-gradient(to top, transparent 0%, black 15%)',
+                      WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)'
                     }}
                   />
                 </div>
@@ -248,6 +250,10 @@ export default function Hero() {
                         src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
                         alt="Daddy Band Members"
                         className="relative max-h-[30vh] sm:max-h-[35vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
+                        style={{
+                          maskImage: 'linear-gradient(to top, transparent 0%, black 15%)',
+                          WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)'
+                        }}
                       />
                     </div>
                   </div>
