@@ -55,7 +55,7 @@ export default function BundleOfferAd({ onReserve }) {
           {/* Ad Image / Flyer */}
           <div className="w-full max-w-sm md:max-w-md shrink-0 transition-transform duration-500 hover:scale-[1.02]">
             <img 
-              src={`${import.meta.env.BASE_URL}bundle_offer.png`} 
+              src={`${import.meta.env.BASE_URL}bundle_offer.webp`} 
               alt="Bundle Offer Deal" 
               className="w-full h-auto rounded-xl shadow-[0_10px_30px_rgba(34,255,68,0.2)] object-contain"
             />
