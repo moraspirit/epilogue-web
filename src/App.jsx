@@ -132,11 +132,11 @@ function App() {
 
       {/* ──── PARALLAX OVERLAY CONTENT ──── */}
       <div className="-mt-[100vh] relative z-10 flex flex-col w-full">
-        {/* ──── BUNDLE OFFER AD ──── */}
-        <BundleOfferAd onReserve={() => setTicketFormOpen(true)} />
-
         {/* ──── LINEUP SECTION ──── */}
         <Lineup />
+
+        {/* ──── BUNDLE OFFER AD ──── */}
+        <BundleOfferAd onReserve={() => setTicketFormOpen(true)} />
       </div>
 
       {/* ──── GALLERY SECTION ──── */}
