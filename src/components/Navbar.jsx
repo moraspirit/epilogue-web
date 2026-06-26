@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets }) {
+export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets, hasOfferBanner }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
