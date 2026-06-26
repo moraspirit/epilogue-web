@@ -131,7 +131,7 @@ function App() {
       <Hero />
 
       {/* ──── PARALLAX OVERLAY CONTENT ──── */}
-      <div className="-mt-[100vh] relative z-10 bg-surface-container-lowest">
+      <div className="-mt-[100vh] relative z-10 flex flex-col w-full">
         {/* ──── BUNDLE OFFER AD ──── */}
         <BundleOfferAd onReserve={() => setTicketFormOpen(true)} />
 
