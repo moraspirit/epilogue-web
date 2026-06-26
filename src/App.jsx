@@ -177,7 +177,6 @@ function App() {
         >
           <div 
             className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto hide-scrollbar"
-            onClick={(e) => e.stopPropagation()}
           >
             <button 
               onClick={() => setShowAdModal(false)}
