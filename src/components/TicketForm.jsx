@@ -104,7 +104,7 @@ export default function TicketForm({ isOpen, onClose }) {
     const standard = parseInt(formData.num_standard, 10) || 0;
     const premium = parseInt(formData.num_premium, 10) || 0;
     const bundles = parseInt(formData.num_bundles, 10) || 0;
-    return (standard * 1200) + (premium * 1600) + (bundles * 5200);
+    return (standard * 1200) + (premium * 1600) + (bundles * 5500);
   };
 
   const handleSubmit = async (e) => {
@@ -346,8 +346,8 @@ export default function TicketForm({ isOpen, onClose }) {
                     <div>
                       <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">Special Offer</span>
                       <h4 className="text-md font-bold text-white mt-0.5">Bundle (5 Tickets)</h4>
-                      <span className="text-sm font-black text-green-400">Rs. 5200.00</span>
-                      <p className="text-[10px] text-gray-400 mt-1">Save Rs. 800!</p>
+                      <span className="text-sm font-black text-green-400">Rs. 5500.00</span>
+                      <p className="text-[10px] text-gray-400 mt-1">Save Rs. 500!</p>
                     </div>
                     <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
                       <button 
