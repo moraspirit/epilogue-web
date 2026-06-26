@@ -45,7 +45,7 @@ export default function BundleOfferAd({ onReserve }) {
   const pad = (num) => String(num).padStart(2, '0');
 
   return (
-    <section className="w-full relative z-50 py-16 bg-[#0c0f0f] border-t border-green-500/20 overflow-hidden">
+    <section className="w-full relative z-50 py-16 bg-[#0c0f0f] overflow-hidden">
       {/* Background glow for the section */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-green-500/10 to-cyan-500/10 rounded-full blur-[80px] pointer-events-none" />
 

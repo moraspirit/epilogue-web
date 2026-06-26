@@ -172,7 +172,7 @@ function App() {
       {/* ──── BUNDLE OFFER MODAL ──── */}
       {showAdModal && (
         <div 
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl animate-fade-in"
           onClick={() => setShowAdModal(false)}
         >
           <div 
