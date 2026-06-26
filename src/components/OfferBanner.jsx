@@ -46,7 +46,7 @@ export default function OfferBanner({ onReserve }) {
         
         <div className="flex items-center gap-2">
           <span className="hidden md:inline font-bold tracking-wider uppercase text-green-300">🔥 Epic Bundle Deal</span>
-          <span className="font-semibold uppercase tracking-wider text-[10px] md:text-sm">Ends In:</span>
+          <span className="font-semibold uppercase tracking-wider text-[10px] md:text-sm">Offer Ends In:</span>
           
           <div className="flex gap-1 font-mono text-[11px] md:text-sm font-bold bg-black/40 px-2 py-0.5 rounded border border-green-500/30">
             <span>{pad(timeLeft.days)}d</span>

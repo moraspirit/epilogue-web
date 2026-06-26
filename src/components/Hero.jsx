@@ -133,6 +133,7 @@ export default function Hero() {
               muted
               loop
               playsInline
+              preload="none"
               className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none select-none"
               style={{
                 transform: `scale(${videoScale})`,
@@ -205,6 +206,7 @@ export default function Hero() {
                     <img 
                       src={`${import.meta.env.BASE_URL}epilogue-logo.png`} 
                       alt="EPILOGUE '26" 
+                      fetchPriority="high"
                       className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain mb-4 floating-brand filter drop-shadow-[0_0_20px_rgba(34,255,68,0.2)]" 
                     />
                     <p className="font-body-lg text-sm sm:text-body-lg text-gray-600 dark:text-secondary-fixed-dim mb-4 lg:mb-8 max-w-xl">
@@ -249,7 +251,7 @@ export default function Hero() {
                       <img
                         src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
                         alt="Daddy Band Members"
-                        className="relative max-h-[25vh] sm:max-h-[30vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
+                        className="relative max-h-[35vh] sm:max-h-[40vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
                         style={{
                           maskImage: 'linear-gradient(to top, transparent 0%, black 15%)',
                           WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)'

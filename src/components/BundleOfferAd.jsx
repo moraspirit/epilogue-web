@@ -56,6 +56,8 @@ export default function BundleOfferAd({ onReserve }) {
             <img 
               src={`${import.meta.env.BASE_URL}bundle_offer.webp`} 
               alt="Bundle Offer Deal" 
+              loading="lazy"
+              fetchPriority="low"
               className="w-full h-auto rounded-xl shadow-[0_10px_30px_rgba(34,255,68,0.2)] object-contain"
             />
           </div>

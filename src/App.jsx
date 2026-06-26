@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import Loader from './components/Loader';
 import OfferBanner from './components/OfferBanner';
 import Navbar from './components/Navbar';
@@ -10,7 +10,7 @@ import Organizer from './components/Organizer';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
 import TicketForm from './components/TicketForm';
-import BundleOfferAd from './components/BundleOfferAd';
+const BundleOfferAd = lazy(() => import('./components/BundleOfferAd'));
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -153,7 +153,9 @@ function App() {
         <Lineup />
 
         {/* ──── BUNDLE OFFER AD ──── */}
-        <BundleOfferAd onReserve={() => setTicketFormOpen(true)} />
+        <Suspense fallback={null}>
+          <BundleOfferAd onReserve={() => setTicketFormOpen(true)} />
+        </Suspense>
       </div>
 
       {/* ──── GALLERY SECTION ──── */}
@@ -202,12 +204,14 @@ function App() {
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
-            <BundleOfferAd 
-              onReserve={() => {
-                setShowAdModal(false);
-                setTicketFormOpen(true);
-              }} 
-            />
+            <Suspense fallback={null}>
+              <BundleOfferAd 
+                onReserve={() => {
+                  setShowAdModal(false);
+                  setTicketFormOpen(true);
+                }} 
+              />
+            </Suspense>
           </div>
         </div>
       )}
