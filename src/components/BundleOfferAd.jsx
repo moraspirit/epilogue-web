@@ -8,15 +8,15 @@ export default function BundleOfferAd({ onReserve }) {
     seconds: 0
   });
   const [isRevealed, setIsRevealed] = useState(false);
-  const [bundleStatus, setBundleStatus] = useState({ remaining: null, soldOutAt: null, loading: true });
+  const [bundleStatus, setBundleStatus] = useState({ remaining: null, maxBundles: null, soldOutAt: null, loading: true });
 
   useEffect(() => {
     fetch('https://ticket.moraspirit.com/api/tickets/bundle-status')
       .then(res => res.json())
       .then(data => {
-        setBundleStatus({ remaining: data.remaining, soldOutAt: data.soldOutAt, loading: false });
+        setBundleStatus({ remaining: data.remaining, maxBundles: data.maxBundles, soldOutAt: data.soldOutAt, loading: false });
       })
-      .catch(() => setBundleStatus({ remaining: null, soldOutAt: null, loading: false }));
+      .catch(() => setBundleStatus({ remaining: null, maxBundles: null, soldOutAt: null, loading: false }));
   }, []);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function BundleOfferAd({ onReserve }) {
                 </div>
               ) : (
                 <div className="inline-block bg-green-500/20 border border-green-500/40 text-green-400 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider animate-pulse">
-                  🔥 ONLY 9 SLOTS REMAINING!
+                  🔥 ONLY {bundleStatus.maxBundles ? Math.round((bundleStatus.remaining / bundleStatus.maxBundles) * 100) : 0}% SLOTS REMAINING!
                 </div>
               )}
               
