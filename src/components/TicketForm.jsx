@@ -361,40 +361,34 @@ export default function TicketForm({ isOpen, onClose }) {
             <div className="border-t border-white/5 pt-6">
               <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-3">Choose Tickets *</label>
               <div className="space-y-3">
-                {/* Bundle Ticket Row — visible only if time has passed */}
-                {new Date() >= new Date('2026-06-26T19:00:00+05:30') && formData.batch !== 'Alumni' && (
-                  <div className={`bg-gradient-to-r from-green-900/40 to-[#1e2020] border border-green-500/30 p-4 rounded-2xl flex items-center justify-between ${bundleStatus.remaining === 0 ? 'opacity-50' : ''}`}>
+                {/* Bundle Ticket Row — visible only if time has passed and not sold out */}
+                {new Date() >= new Date('2026-06-26T19:00:00+05:30') && formData.batch !== 'Alumni' && bundleStatus.remaining !== 0 && (
+                  <div className={`bg-gradient-to-r from-green-900/40 to-[#1e2020] border border-green-500/30 p-4 rounded-2xl flex items-center justify-between`}>
                     <div>
                       <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">Special Offer</span>
                       <h4 className="text-md font-bold text-white mt-0.5">Bundle (5 Tickets)</h4>
                       <span className="text-sm font-black text-green-400">Rs. 5500.00</span>
                       <p className="text-[10px] text-gray-400 mt-1">
-                        {bundleStatus.loading ? 'Checking availability...' : bundleStatus.remaining === 0 ? 'Offer is Over' : 'Save Rs. 500!'}
+                        {bundleStatus.loading ? 'Checking availability...' : 'Save Rs. 500!'}
                       </p>
                     </div>
-                    {bundleStatus.remaining === 0 ? (
-                      <div className="text-sm font-bold text-red-400 bg-red-500/10 px-3 py-1.5 rounded-lg border border-red-500/20 uppercase tracking-widest">
-                        Sold Out
-                      </div>
-                    ) : (
-                      <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.max(0, Number(prev.num_bundles) - 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                        </button>
-                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_bundles || 0}</span>
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.min(bundleStatus.remaining !== null ? bundleStatus.remaining : 5, 5, Number(prev.num_bundles) + 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                        </button>
-                      </div>
-                    )}
+                    <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
+                      <button 
+                        type="button" 
+                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.max(0, Number(prev.num_bundles) - 1) }))}
+                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
+                      </button>
+                      <span className="text-sm font-bold text-white w-8 text-center">{formData.num_bundles || 0}</span>
+                      <button 
+                        type="button" 
+                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.min(bundleStatus.remaining !== null ? bundleStatus.remaining : 5, 5, Number(prev.num_bundles) + 1) }))}
+                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
+                      </button>
+                    </div>
                   </div>
                 )}
 

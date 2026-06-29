@@ -73,7 +73,7 @@ export default function BundleOfferAd({ onReserve }) {
           {/* Ad Image / Flyer */}
           <div className="w-full max-w-sm md:max-w-md shrink-0 transition-transform duration-500 hover:scale-[1.02]">
             <img 
-              src={`${import.meta.env.BASE_URL}bundle_offer_v2.webp`} 
+              src={`${import.meta.env.BASE_URL}bundle_offer_v3.webp`} 
               alt="Bundle Offer Deal" 
               loading="lazy"
               fetchPriority="low"
@@ -82,7 +82,7 @@ export default function BundleOfferAd({ onReserve }) {
           </div>
 
           {/* Ad Content & Timer */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left w-full">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left, w-full">
             
             <div className="mb-6">
               <h2 className="font-sans text-3xl md:text-4xl font-black text-white uppercase tracking-tight mb-2">
@@ -94,15 +94,18 @@ export default function BundleOfferAd({ onReserve }) {
             </div>
 
             <div className="w-full space-y-6">
+              {/* Sold out / dynamic count text over the image */}
+              <div className="relative z-20 whitespace-nowrap">
               {bundleStatus.remaining === 0 ? (
                 <div className="inline-block bg-red-500/20 border border-red-500/40 text-red-400 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider">
                   Offer is Over
                 </div>
               ) : (
                 <div className="inline-block bg-green-500/20 border border-green-500/40 text-green-400 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider animate-pulse">
-                  🔥 ONLY {bundleStatus.maxBundles ? Math.round((bundleStatus.remaining / bundleStatus.maxBundles) * 100) : 0}% SLOTS REMAINING!
+                  🔥 ONLY 10% SLOTS REMAINING!
                 </div>
               )}
+              </div>
               
               <div className="w-full bg-[#0c0f0f]/80 border border-green-500/20 p-5 rounded-2xl mb-4">
                 <h3 className="font-label-caps text-xs text-green-500 tracking-widest uppercase mb-4 font-bold">
