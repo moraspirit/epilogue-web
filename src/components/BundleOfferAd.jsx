@@ -53,11 +53,11 @@ export default function BundleOfferAd({ onReserve }) {
 
   const pad = (num) => String(num).padStart(2, '0');
 
-  // If sold out for more than 24 hours, completely remove the section
+  // If sold out for more than 1 hour, completely remove the section
   if (bundleStatus.remaining === 0 && bundleStatus.soldOutAt) {
     const soldOutTime = new Date(bundleStatus.soldOutAt).getTime();
     const now = new Date().getTime();
-    if (now - soldOutTime > 24 * 60 * 60 * 1000) {
+    if (now - soldOutTime > 1 * 60 * 60 * 1000) {
       return null;
     }
   }
@@ -102,7 +102,7 @@ export default function BundleOfferAd({ onReserve }) {
                 </div>
               ) : (
                 <div className="inline-block bg-green-500/20 border border-green-500/40 text-green-400 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-wider animate-pulse">
-                  🔥 ONLY {bundleStatus.remaining * 2}% SLOTS REMAINING!
+                  🔥 ONLY 10% SLOTS REMAINING!
                 </div>
               )}
               </div>
