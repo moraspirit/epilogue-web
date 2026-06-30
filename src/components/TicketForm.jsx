@@ -13,10 +13,7 @@ export default function TicketForm({ isOpen, onClose }) {
     num_standard: 0,
     num_premium: 0,
     num_alumni: 1,
-    num_bundles: 0,
   });
-
-  const [bundleStatus, setBundleStatus] = useState({ remaining: null, loading: true });
 
   const [paymentSlip, setPaymentSlip] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -38,24 +35,7 @@ export default function TicketForm({ isOpen, onClose }) {
     };
   }, [isOpen]);
 
-  useEffect(() => {
-    if (isOpen) {
-      // Fetch bundle status
-      fetch('https://ticket.moraspirit.com/api/tickets/bundle-status')
-        .then(res => res.json())
-        .then(data => {
-          setBundleStatus({ remaining: data.remaining, loading: false });
-          if (data.remaining === 0) {
-            // Reset selected bundles if it's sold out
-            setFormData(prev => ({ ...prev, num_bundles: 0 }));
-          }
-        })
-        .catch(err => {
-          console.error('Failed to fetch bundle status', err);
-          setBundleStatus({ remaining: null, loading: false });
-        });
-    }
-  }, [isOpen]);
+
 
   if (!isOpen) return null;
 
@@ -124,8 +104,7 @@ export default function TicketForm({ isOpen, onClose }) {
     }
     const standard = parseInt(formData.num_standard, 10) || 0;
     const premium = parseInt(formData.num_premium, 10) || 0;
-    const bundles = parseInt(formData.num_bundles, 10) || 0;
-    return (standard * 1200) + (premium * 1600) + (bundles * 5500);
+    return (standard * 1200) + (premium * 1600);
   };
 
   const handleSubmit = async (e) => {
@@ -158,12 +137,10 @@ export default function TicketForm({ isOpen, onClose }) {
     } else {
       const stdCount = Number(formData.num_standard) || 0;
       const prmCount = Number(formData.num_premium) || 0;
-      const bdlCount = Number(formData.num_bundles) || 0;
       
-      final_num_tickets = stdCount + prmCount + (bdlCount * 5);
+      final_num_tickets = stdCount + prmCount;
       
       const types = [];
-      if (bdlCount > 0) types.push(`Bundle (x${bdlCount})`);
       if (stdCount > 0) types.push(`Standard (x${stdCount})`);
       if (prmCount > 0) types.push(`Premium (x${prmCount})`);
       
@@ -184,7 +161,7 @@ export default function TicketForm({ isOpen, onClose }) {
     try {
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
-        if (!['num_standard', 'num_premium', 'num_alumni', 'num_bundles', 'ticket_type', 'num_tickets'].includes(key)) {
+        if (!['num_standard', 'num_premium', 'num_alumni', 'ticket_type', 'num_tickets'].includes(key)) {
           data.append(key, formData[key]);
         }
       });
@@ -218,7 +195,6 @@ export default function TicketForm({ isOpen, onClose }) {
         num_standard: 0,
         num_premium: 0,
         num_alumni: 1,
-        num_bundles: 0,
       });
       setPaymentSlip(null);
       setSuccess(true);
@@ -361,36 +337,6 @@ export default function TicketForm({ isOpen, onClose }) {
             <div className="border-t border-white/5 pt-6">
               <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-3">Choose Tickets *</label>
               <div className="space-y-3">
-                {/* Bundle Ticket Row — visible only if time has passed and not sold out */}
-                {new Date() >= new Date('2026-06-26T19:00:00+05:30') && formData.batch !== 'Alumni' && bundleStatus.remaining !== 0 && (
-                  <div className={`bg-gradient-to-r from-green-900/40 to-[#1e2020] border border-green-500/30 p-4 rounded-2xl flex items-center justify-between`}>
-                    <div>
-                      <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">Special Offer</span>
-                      <h4 className="text-md font-bold text-white mt-0.5">Bundle (5 Tickets)</h4>
-                      <span className="text-sm font-black text-green-400">Rs. 5500.00</span>
-                      <p className="text-[10px] text-gray-400 mt-1">
-                        {bundleStatus.loading ? 'Checking availability...' : 'Save Rs. 500!'}
-                      </p>
-                    </div>
-                    <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.max(0, Number(prev.num_bundles) - 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                      </button>
-                      <span className="text-sm font-bold text-white w-8 text-center">{formData.num_bundles || 0}</span>
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.min(bundleStatus.remaining !== null ? bundleStatus.remaining : 5, 5, Number(prev.num_bundles) + 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                      </button>
-                    </div>
-                  </div>
-                )}
 
                 {/* Standard Ticket Row — always visible */}
                 <div className={`flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl ${formData.batch === 'Alumni' ? 'opacity-40 pointer-events-none' : ''}`}>
