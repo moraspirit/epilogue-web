@@ -141,8 +141,8 @@ export default function TicketForm({ isOpen, onClose }) {
       final_num_tickets = stdCount + prmCount;
       
       const types = [];
-      if (stdCount > 0) types.push(`Standard (x${stdCount})`);
-      if (prmCount > 0) types.push(`Premium (x${prmCount})`);
+      if (stdCount > 0) types.push(`Early Bird - Standard (x${stdCount})`);
+      if (prmCount > 0) types.push(`Early Bird - Premium (x${prmCount})`);
       
       final_ticket_type = types.join(' + ') || 'Standard';
     }
