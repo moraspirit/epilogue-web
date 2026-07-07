@@ -12,28 +12,9 @@ export default function TicketForm({ isOpen, onClose }) {
     ticket_type: 'Standard',
     num_standard: 0,
     num_premium: 0,
-    num_premium_bundles: 0,
     num_alumni: 1,
   });
 
-  const [premiumBundleStatus, setPremiumBundleStatus] = useState({ remaining: null, loading: true });
-
-  // Fetch bundle status
-  useEffect(() => {
-    const baseUrl = import.meta.env.DEV ? 'http://localhost:3005' : 'https://ticket.moraspirit.com';
-    fetch(`${baseUrl}/api/tickets/premium-bundle-status`)
-      .then(res => res.json())
-      .then(data => {
-        setPremiumBundleStatus({ remaining: data.remaining, loading: false });
-        if (data.remaining === 0) {
-          setFormData(prev => ({ ...prev, num_premium_bundles: 0 }));
-        }
-      })
-      .catch(err => {
-        console.error('Failed to fetch premium bundle status', err);
-        setPremiumBundleStatus({ remaining: null, loading: false });
-      });
-  }, [isOpen]);
 
   const [paymentSlip, setPaymentSlip] = useState(null);
   const [dragActive, setDragActive] = useState(false);
@@ -124,8 +105,7 @@ export default function TicketForm({ isOpen, onClose }) {
     }
     const standard = parseInt(formData.num_standard, 10) || 0;
     const premium = parseInt(formData.num_premium, 10) || 0;
-    const premiumBundles = parseInt(formData.num_premium_bundles, 10) || 0;
-    return (standard * 1200) + (premium * 1600) + (premiumBundles * 7500);
+    return (standard * 1200) + (premium * 1600);
   };
 
   const handleSubmit = async (e) => {
@@ -414,41 +394,7 @@ export default function TicketForm({ isOpen, onClose }) {
                   </div>
                 </div>
 
-                {/* Premium Bundle Ticket Row */}
-                {formData.batch !== 'Alumni' && 
-                 new Date() >= new Date('2026-07-01T18:45:00+05:30') && 
-                 new Date() < new Date('2026-07-05T23:59:59+05:30') && 
-                 premiumBundleStatus.remaining !== 0 && (
-                  <div className="bg-cyan-950/20 border border-cyan-500/20 p-5 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
-                    <div>
-                      <span className="text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase">Premium Bundle Offer</span>
-                      <h4 className="text-lg font-bold text-white mt-1">Premium Bundle (5 Tickets)</h4>
-                      <p className="text-sm text-cyan-300 font-semibold mt-0.5">
-                        {premiumBundleStatus.loading ? 'Checking availability...' : 'Save Rs. 500 Only Rs. 7500.00'}
-                      </p>
-                    </div>
-                    <div className="w-full md:w-32">
-                      <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Quantity</label>
-                      <div className="flex items-center justify-between bg-[#1a1d1d] border border-white/5 rounded-xl px-3 py-2">
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_premium_bundles: Math.max(0, Number(prev.num_premium_bundles) - 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                        </button>
-                        <span className="text-sm font-bold text-white w-8 text-center">{formData.num_premium_bundles || 0}</span>
-                        <button 
-                          type="button" 
-                          onClick={() => setFormData(prev => ({ ...prev, num_premium_bundles: Math.min(premiumBundleStatus.remaining !== null ? premiumBundleStatus.remaining : 5, 5, Number(prev.num_premium_bundles) + 1) }))}
-                          className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
+
 
                 {/* Alumni Ticket Row — only when Alumni batch is selected */}
                 {formData.batch === 'Alumni' && (
