@@ -101,11 +101,11 @@ export default function TicketForm({ isOpen, onClose }) {
 
   const calculateTotal = () => {
     if (formData.batch === 'Alumni') {
-      return (parseInt(formData.num_alumni, 10) || 0) * 2300;
+      return (parseInt(formData.num_alumni, 10) || 0) * 2500;
     }
     const standard = parseInt(formData.num_standard, 10) || 0;
     const premium = parseInt(formData.num_premium, 10) || 0;
-    return (standard * 1200) + (premium * 1600);
+    return (standard * 1400) + (premium * 1800);
   };
 
   const handleSubmit = async (e) => {
@@ -138,14 +138,12 @@ export default function TicketForm({ isOpen, onClose }) {
     } else {
       const stdCount = Number(formData.num_standard) || 0;
       const prmCount = Number(formData.num_premium) || 0;
-      const prmBundleCount = Number(formData.num_premium_bundles) || 0;
       
-      final_num_tickets = stdCount + prmCount + (prmBundleCount * 5);
+      final_num_tickets = stdCount + prmCount;
       
       const types = [];
-      if (stdCount > 0) types.push(`Early Bird - Standard (x${stdCount})`);
-      if (prmCount > 0) types.push(`Early Bird - Premium (x${prmCount})`);
-      if (prmBundleCount > 0) types.push(`Bundle Premium (x${prmBundleCount})`);
+      if (stdCount > 0) types.push(`Standard (x${stdCount})`);
+      if (prmCount > 0) types.push(`Premium (x${prmCount})`);
       
       final_ticket_type = types.join(' + ') || 'Standard';
     }
@@ -347,7 +345,7 @@ export default function TicketForm({ isOpen, onClose }) {
                   <div>
                     <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">Standard Offer</span>
                     <h4 className="text-md font-bold text-white mt-0.5">Standard Ticket</h4>
-                    <span className="text-sm font-black text-green-400">Rs. 1200.00</span>
+                    <span className="text-sm font-black text-green-400">Rs. 1400.00</span>
                   </div>
                   <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
                     <button 
@@ -373,7 +371,7 @@ export default function TicketForm({ isOpen, onClose }) {
                   <div>
                     <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">VIP Access</span>
                     <h4 className="text-md font-bold text-white mt-0.5">Premium Ticket</h4>
-                    <span className="text-sm font-black text-green-400">Rs. 1600.00</span>
+                    <span className="text-sm font-black text-green-400">Rs. 1800.00</span>
                   </div>
                   <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
                     <button 
@@ -402,7 +400,7 @@ export default function TicketForm({ isOpen, onClose }) {
                     <div>
                       <span className="text-xs font-bold font-mono tracking-widest text-green-400 uppercase">Alumni Offer</span>
                       <h4 className="text-lg font-bold text-white mt-1">Alumni Ticket</h4>
-                      <p className="text-sm text-gray-400 mt-0.5">Price: Rs. 2300.00 per Ticket</p>
+                      <p className="text-sm text-gray-400 mt-0.5">Price: Rs. 2500.00 per Ticket</p>
                     </div>
                     <div className="w-full md:w-32">
                       <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Quantity</label>

@@ -9,8 +9,6 @@ import Organizer from './components/Organizer';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
 import TicketForm from './components/TicketForm';
-import EarlyBirdBanner from './components/EarlyBirdBanner';
-import EarlyBirdOfferAd from './components/EarlyBirdOfferAd';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,19 +18,6 @@ function App() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [ticketFormOpen, setTicketFormOpen] = useState(false);
-  const [showAdModal, setShowAdModal] = useState(false);
-  const [isOfferLive, setIsOfferLive] = useState(true);
-
-  useEffect(() => {
-    const target = new Date('2026-07-13T23:59:59+05:30').getTime();
-    const interval = setInterval(() => {
-      if (new Date().getTime() > target) {
-        setIsOfferLive(false);
-        clearInterval(interval);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
   // MoraSpirit Gallery images (representing the club)
   const galleryImages = [
     { src: `${import.meta.env.BASE_URL}gallery/image1.jpeg`, alt: 'Epilogue Gallery 1' },
@@ -46,14 +31,14 @@ function App() {
 
   // Prevent background scroll when loading, mobile drawer, or lightbox is open
   useEffect(() => {
-    if ((loading && !splitLoader) || isMobileMenuOpen || lightboxOpen || showAdModal) {
+    if ((loading && !splitLoader) || isMobileMenuOpen || lightboxOpen) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     }
-  }, [loading, splitLoader, isMobileMenuOpen, lightboxOpen, showAdModal]);
+  }, [loading, splitLoader, isMobileMenuOpen, lightboxOpen]);
 
   // Force dark mode always
   useEffect(() => {
@@ -79,12 +64,6 @@ function App() {
           setSplitLoader(true);
           timer2 = setTimeout(() => {
             setLoading(false);
-            if (isOfferLive) {
-              setShowAdModal(true);
-              setTimeout(() => {
-                setShowAdModal(false);
-              }, 2000);
-            }
           }, 600);
         }, 200);
       }
@@ -137,15 +116,11 @@ function App() {
       <div className="ambient-blob top-0 left-[-20%]"></div>
       <div className="ambient-blob bottom-0 right-[-20%]"></div>
 
-      {/* ──── EARLY BIRD BANNER ──── */}
-      {isOfferLive && <EarlyBirdBanner onReserve={() => setTicketFormOpen(true)} />}
-
       {/* ──── TOP NAVIGATION ──── */}
       <Navbar 
         isMobileMenuOpen={isMobileMenuOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
         onBuyTickets={() => setTicketFormOpen(true)}
-        hasOfferBanner={isOfferLive}
       />
 
       {/* ──── CINEMATIC HERO ──── */}
@@ -153,7 +128,6 @@ function App() {
 
       {/* ──── PARALLAX OVERLAY CONTENT ──── */}
       <div className="-mt-[100vh] relative z-10 flex flex-col w-full">
-        {isOfferLive && <EarlyBirdOfferAd onReserve={() => setTicketFormOpen(true)} />}
         {/* ──── LINEUP SECTION ──── */}
         <Lineup />
       </div>
@@ -188,32 +162,6 @@ function App() {
         onClose={() => setTicketFormOpen(false)} 
       />
 
-      {/* ──── EARLY BIRD SPLASH MODAL ──── */}
-      {showAdModal && (
-        <div 
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl animate-fade-in"
-          onClick={() => setShowAdModal(false)}
-        >
-          <div 
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto hide-scrollbar"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              onClick={() => setShowAdModal(false)}
-              className="absolute top-4 right-4 z-50 p-2 text-white bg-black/50 hover:bg-black/80 rounded-full transition-colors"
-              aria-label="Close ad"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-            <EarlyBirdOfferAd 
-              onReserve={() => {
-                setShowAdModal(false);
-                setTicketFormOpen(true);
-              }} 
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
