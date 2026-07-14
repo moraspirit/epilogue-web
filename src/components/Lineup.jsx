@@ -123,6 +123,7 @@ export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
 
         {/* Action Buttons Row */}
         <div className="reveal flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-lg mx-auto pb-16">
+          {/* Hiding Flyer Submission button for now
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -132,6 +133,7 @@ export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
           >
             <span>FLYER SUBMISSION</span>
           </button>
+          */}
           
           <button
             onClick={(e) => {
