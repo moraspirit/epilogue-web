@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Lineup() {
+export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
   return (
     <div className="bg-surface-container-lowest" id="lineup">
       {/* ──── SCENE 1: HEADLINING ──── */}
@@ -57,7 +57,7 @@ export default function Lineup() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto w-full mb-12">
           {/* Artist 1 Card */}
           <div 
             className="reveal glass-panel p-8 sm:p-10 rounded-3xl border border-green-500/20 shadow-[0_8px_32px_rgba(34,255,68,0.05)] flex flex-col bg-[#121414]/60 relative overflow-hidden backdrop-blur-xl"
@@ -119,6 +119,30 @@ export default function Lineup() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Action Buttons Row */}
+        <div className="reveal flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-lg mx-auto pb-16">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onFlyerSubmission();
+            }}
+            className="w-full sm:w-auto border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-8 py-3.5 rounded font-sans text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 flex items-center justify-center gap-2"
+          >
+            <span>FLYER SUBMISSION</span>
+          </button>
+          
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              onBuyTickets();
+            }}
+            className="w-full sm:w-auto bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-8 py-3.5 rounded font-sans text-sm font-bold tracking-wide hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+            <span>BUY TICKETS</span>
+          </button>
         </div>
       </section>
     </div>
