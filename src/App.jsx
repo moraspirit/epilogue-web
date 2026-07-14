@@ -195,7 +195,7 @@ function App() {
             {/* Title / Header */}
             <div className="text-center pt-6 pb-2">
               <h2 className="font-sans text-xl sm:text-2xl font-black tracking-tight text-white dark:text-primary-fixed uppercase">
-                FLYER SUBMISSION
+                Most Popular AI Flyer Challenge
               </h2>
               <p className="text-xs text-green-500 font-mono tracking-widest uppercase mt-1">
                 EPILOGUE '26 COMPETITION
@@ -213,7 +213,7 @@ function App() {
                 </div>
               )}
               <iframe
-                src="https://script.google.com/macros/s/AKfycbwUIvk0pGB6404q5fuXJuULQ0MeODRUAdaAE0XGw1i2Oc7jTji8lOT_XwHdWSxBdBmZ/exec"
+                src="https://script.google.com/macros/s/AKfycbzmRDvBSlMuJIPnU4V7zh43LFAIO16Z5_Psgx33UYLY97tQvcG5rlDxWtAEjtTPg1We/exec"
                 width="100%"
                 height="100%"
                 style={{ border: 'none' }}

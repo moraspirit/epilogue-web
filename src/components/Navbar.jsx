@@ -33,17 +33,17 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
             <a className="font-sans text-sm md:text-base font-semibold tracking-wide text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#organizer">About Us</a>
           </div>
           <div className="flex gap-3 items-center">
-            {/* Hiding Flyer Submission button for now
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                onFlyerSubmission();
-              }}
-              className="hidden lg:flex border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-4 py-2 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 items-center gap-1.5"
-            >
-              <span>FLYER SUBMISSION</span>
-            </button>
-            */}
+              {/* Hiding Flyer Submission button for now */}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  onFlyerSubmission();
+                }}
+                className="hidden lg:flex border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-4 py-2 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 items-center gap-1.5"
+              >
+                <span>FLYER CHALLENGE</span>
+              </button>
+             
 
             <button 
               onClick={(e) => {
@@ -113,7 +113,7 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
             About Us
           </a>
 
-          {/* Hiding Flyer Submission mobile button for now
+          {/* Hiding Flyer Submission mobile button for now */}
           <button 
             onClick={() => {
               setIsMobileMenuOpen(false);
@@ -123,7 +123,7 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
           >
             <span>FLYER SUBMISSION</span>
           </button>
-          */}
+         
 
           <button 
             onClick={() => {

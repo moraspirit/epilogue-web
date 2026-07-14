@@ -123,7 +123,7 @@ export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
 
         {/* Action Buttons Row */}
         <div className="reveal flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-lg mx-auto pb-16">
-          {/* Hiding Flyer Submission button for now
+          {/* Hiding Flyer Submission button for now */}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -131,9 +131,9 @@ export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
             }}
             className="w-full sm:w-auto border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-8 py-3.5 rounded font-sans text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 flex items-center justify-center gap-2"
           >
-            <span>FLYER SUBMISSION</span>
+            <span>FLYER CHALLENGE</span>
           </button>
-          */}
+         
           
           <button
             onClick={(e) => {
