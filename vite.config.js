@@ -9,4 +9,9 @@ export default defineConfig({
     __BUNDLED_DEV__: 'false',
     __SERVER_FORWARD_CONSOLE__: 'false',
   },
+  server: {
+    watch: {
+      usePolling: true
+    }
+  }
 })

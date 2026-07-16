@@ -123,16 +123,40 @@ export default function Lineup({ onBuyTickets, onFlyerSubmission }) {
 
         {/* Action Buttons Row */}
         <div className="reveal flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-lg mx-auto pb-16">
-          {/* Hiding Flyer Submission button for now */}
+          {/* Desktop Button */}
           <button
             onClick={(e) => {
               e.preventDefault();
               onFlyerSubmission();
             }}
-            className="w-full sm:w-auto border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-8 py-3.5 rounded font-sans text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 flex items-center justify-center gap-2"
+            className="hidden sm:flex border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-8 py-3.5 rounded font-sans text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 items-center justify-center gap-2"
           >
             <span>FLYER CHALLENGE</span>
           </button>
+
+          {/* Mobile CSS Banner Card */}
+          <div 
+            onClick={(e) => {
+              e.preventDefault();
+              onFlyerSubmission();
+            }}
+            className="sm:hidden w-full bg-gradient-to-br from-green-950 via-[#0a0c0c] to-emerald-950 border border-green-500/30 p-5 rounded-2xl flex flex-col items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.15)] cursor-pointer hover:border-green-500/50 transition-all duration-300 relative overflow-hidden group animate-breathe"
+          >
+            <div className="absolute top-0 right-0 w-24 h-24 bg-green-500/5 rounded-full blur-2xl group-hover:bg-green-500/10 transition-all duration-500"></div>
+            <span className="bg-green-500/10 border border-green-500/20 px-2.5 py-1 rounded-full text-[10px] font-bold text-green-400 tracking-wider uppercase mb-2">
+              🏆 AI Flyer & Video Challenge
+            </span>
+            <h3 className="text-white text-base font-bold tracking-wide text-center">
+              Create. Submit. Win Exciting Prizes!
+            </h3>
+            <p className="text-gray-400 text-[11px] text-center mt-1">
+              Tap here to submit your flyer or video and claim your reward.
+            </p>
+            <span className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-green-400 group-hover:translate-x-1 transition-transform">
+              Join Challenge Now
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
          
           
           <button

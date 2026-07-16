@@ -127,16 +127,25 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
             About Us
           </a>
 
-          {/* Hiding Flyer Submission mobile button for now */}
-          <button 
+          {/* Mobile Drawer Banner instead of button */}
+          <div 
             onClick={() => {
               setIsMobileMenuOpen(false);
               onFlyerSubmission();
             }}
-            className="w-full mt-4 bg-transparent border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container py-3 rounded-xl font-sans text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 flex items-center justify-center gap-2"
+            className="w-full mt-4 bg-gradient-to-br from-green-950 via-[#161a1a] to-emerald-950 border border-green-500/30 p-4 rounded-xl flex flex-col items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.1)] cursor-pointer hover:border-green-500/50 transition-all duration-300 relative overflow-hidden group animate-breathe"
           >
-            <span>FLYER SUBMISSION</span>
-          </button>
+            <span className="bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-full text-[9px] font-bold text-green-400 tracking-wider uppercase mb-1">
+              🏆 AI Flyer Challenge
+            </span>
+            <h4 className="text-white text-xs font-bold text-center">
+              Submit & Win Exciting Prizes!
+            </h4>
+            <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-green-400">
+              Join Now
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/></svg>
+            </span>
+          </div>
          
 
           <button 

@@ -30,6 +30,7 @@ function App() {
 
 
   const [flyerFormOpen, setFlyerFormOpen] = useState(false);
+  const [showMobileBanner, setShowMobileBanner] = useState(true);
 
   // Prevent background scroll when loading, mobile drawer, lightbox, or flyer modal is open
   useEffect(() => {
@@ -321,6 +322,39 @@ function App() {
                 Form not loading? Try opening the page in a <span className="text-green-400 dark:text-primary-container font-bold">new incognito window/tab</span>.
               </p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Sticky Flyer Challenge Banner */}
+      {showMobileBanner && !flyerFormOpen && (
+        <div className="sm:hidden fixed bottom-0 left-0 w-full z-[80] p-3.5 bg-[#0a0c0c]/95 backdrop-blur-md border-t border-green-500/20 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] flex items-center justify-between gap-3 animate-slide-up">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1" onClick={() => { setIframeLoading(true); setFlyerFormOpen(true); }}>
+            <div className="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center border border-green-500/20 shrink-0">
+              <span className="text-lg">🏆</span>
+            </div>
+            <div className="min-w-0 flex-1">
+              <h4 className="text-white text-xs font-bold truncate">AI Flyer Challenge</h4>
+              <p className="text-[10px] text-gray-400 truncate">Submit & win exciting prizes!</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => { setIframeLoading(true); setFlyerFormOpen(true); }}
+              className="px-3.5 py-1.5 bg-green-700 text-white text-[11px] font-bold uppercase tracking-wider rounded-lg shadow-[0_0_10px_rgba(34,197,94,0.3)] animate-pulse"
+            >
+              Join
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowMobileBanner(false);
+              }}
+              className="p-1 text-gray-400 hover:text-white"
+              aria-label="Dismiss banner"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
           </div>
         </div>
       )}
