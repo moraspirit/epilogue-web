@@ -202,6 +202,20 @@ function App() {
               </p>
             </div>
 
+            {/* Rules list */}
+            <div className="mx-auto max-w-2xl px-5 py-4 bg-[#1e2020]/60 rounded-2xl border border-outline-variant/20 mt-4 text-left">
+              <h3 className="font-sans text-xs sm:text-sm font-bold tracking-wider uppercase text-green-400 mb-2.5">
+                Submission Guidelines:
+              </h3>
+              <ul className="space-y-2 list-disc pl-5 text-xs sm:text-sm text-gray-300">
+                <li>All submissions must be created using AI design tools.</li>
+                <li>Do not use any MoraSpirit Official logos.</li>
+                <li>Be mindful of artists’ images; faces should remain clear and recognizable, without distortion.</li>
+                <li>Graphic submissions can be in any ratio (square, portrait, etc.).</li>
+                <li>Video submissions must be less than 30 seconds in length and the file size must be limited to a maximum of 40MB.</li>
+              </ul>
+            </div>
+
             {/* Iframe content */}
             <div className="relative w-full h-[75vh] min-h-[500px] overflow-hidden rounded-2xl border border-outline-variant/10 mt-4 bg-black/20">
               {iframeLoading && (
@@ -213,7 +227,7 @@ function App() {
                 </div>
               )}
               <iframe
-                src="https://script.google.com/macros/s/AKfycbzmRDvBSlMuJIPnU4V7zh43LFAIO16Z5_Psgx33UYLY97tQvcG5rlDxWtAEjtTPg1We/exec"
+                src="https://script.google.com/macros/s/AKfycbxg1_kMNQz5CYUIyeyXinjTssEI7W_NldnqrTUbtY-1s2HRiC_VnVgfjqUa9II8xQeX/exec"
                 width="100%"
                 height="100%"
                 style={{ border: 'none' }}
