@@ -244,6 +244,9 @@ function App() {
                       <li>Interactions from fake, bot, or suspicious accounts will be disqualified.</li>
                       <li>Reactions and shares received after the voting deadline will not be considered.</li>
                     </ul>
+                     <p className="text-[11px] italic text-gray-400 mt-2.5 pt-2 border-t border-white/5">
+                      The final score will be calculated by combining the eligible votes received on both Facebook and Instagram.
+                    </p>
                   </div>
                 )}
 
@@ -272,7 +275,7 @@ function App() {
                       <li>MoraSpirit official logos must not be used in any submission.</li>
                       <li>When using artists' images, ensure their faces remain clear, recognizable, and not distorted.</li>
                       <li>Graphic submissions may be in any aspect ratio (square, portrait, landscape, etc.).</li>
-                      <li>Video submissions must not exceed <strong className="text-green-400">1 minute</strong> in duration.</li>
+                      <li>Video submissions must not exceed <strong className="text-green-400">30 seconds</strong> in duration.</li>
                     </ul>
                   </div>
                 )}
@@ -310,6 +313,13 @@ function App() {
                     onLoad={() => setIframeLoading(false)}
                     sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin allow-popups"
                   />
+            </div>
+            
+            {/* Fallback open link */}
+            <div className="text-center mt-3 mb-1">
+              <p className="text-gray-400 text-[13px] font-sans">
+                Form not loading? Try opening the page in a <span className="text-green-400 dark:text-primary-container font-bold">new incognito window/tab</span>.
+              </p>
             </div>
           </div>
         </div>
