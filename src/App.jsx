@@ -106,6 +106,7 @@ function App() {
   }, []);
 
   const [iframeLoading, setIframeLoading] = useState(true);
+  const [ruleTab, setRuleTab] = useState('fb');
 
   return (
     <div className="overflow-x-clip w-full relative min-h-screen">
@@ -202,18 +203,92 @@ function App() {
               </p>
             </div>
 
-            {/* Rules list */}
-            <div className="mx-auto max-w-2xl px-5 py-4 bg-[#1e2020]/60 rounded-2xl border border-outline-variant/20 mt-4 text-left">
-              <h3 className="font-sans text-xs sm:text-sm font-bold tracking-wider uppercase text-green-400 mb-2.5">
-                Submission Guidelines:
+            {/* Rules & Regulations Interactive Tabs */}
+            <div className="mx-auto max-w-2xl mt-4 px-2 sm:px-4 py-4 bg-[#1e2020]/60 rounded-2xl border border-outline-variant/20 text-left">
+              <h3 className="font-sans text-xs sm:text-sm font-bold tracking-wider uppercase text-green-400 mb-3 text-center">
+                Rules & Regulations
               </h3>
-              <ul className="space-y-2 list-disc pl-5 text-xs sm:text-sm text-gray-300">
-                <li>All submissions must be created using AI design tools.</li>
-                <li>Do not use any MoraSpirit Official logos.</li>
-                <li>Be mindful of artists’ images; faces should remain clear and recognizable, without distortion.</li>
-                <li>Graphic submissions can be in any ratio (square, portrait, etc.).</li>
-                <li>Video submissions must be less than 30 seconds in length and the file size must be limited to a maximum of 40MB.</li>
-              </ul>
+              
+              {/* Tab Selector Buttons */}
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center mb-4 border-b border-white/5 pb-3">
+                {[
+                  { id: 'fb', label: 'Facebook' },
+                  { id: 'ig', label: 'Instagram' },
+                  { id: 'submission', label: 'Submission' },
+                  { id: 'general', label: 'General Rules' }
+                ].map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setRuleTab(tab.id)}
+                    className={`px-3 py-1.5 rounded-lg font-sans text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                      ruleTab === tab.id
+                        ? 'bg-green-700 text-white dark:bg-primary-container dark:text-on-primary-fixed shadow-md'
+                        : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tab Content Display */}
+              <div className="min-h-[140px] px-2">
+                {ruleTab === 'fb' && (
+                  <div className="animate-fade-in">
+                    <h4 className="font-sans text-xs sm:text-sm font-bold text-white mb-2 uppercase tracking-wide">Facebook Voting</h4>
+                    <ul className="space-y-1.5 list-disc pl-5 text-xs sm:text-sm text-gray-300">
+                      <li>Voters must follow our official Facebook page.</li>
+                      <li>Only reactions and shares will be considered for voting.</li>
+                      <li>Each reaction = <strong className="text-green-400">1 point</strong> | Each share = <strong className="text-green-400">2 points</strong>.</li>
+                      <li>Only interactions on the original post will be counted.</li>
+                      <li>Interactions from fake, bot, or suspicious accounts will be disqualified.</li>
+                      <li>Reactions and shares received after the voting deadline will not be considered.</li>
+                    </ul>
+                  </div>
+                )}
+
+                {ruleTab === 'ig' && (
+                  <div className="animate-fade-in">
+                    <h4 className="font-sans text-xs sm:text-sm font-bold text-white mb-2 uppercase tracking-wide">Instagram Voting</h4>
+                    <ul className="space-y-1.5 list-disc pl-5 text-xs sm:text-sm text-gray-300">
+                      <li>Voters must follow our official Instagram page.</li>
+                      <li>Only reactions will be considered for voting.</li>
+                      <li>Each reaction = <strong className="text-green-400">1 point</strong>.</li>
+                      <li>Only reactions on the original post will be counted.</li>
+                      <li>Interactions from fake, bot, or suspicious accounts will be disqualified.</li>
+                      <li>Reactions received after the voting deadline will not be considered.</li>
+                    </ul>
+                    <p className="text-[11px] italic text-gray-400 mt-2.5 pt-2 border-t border-white/5">
+                      The final score will be calculated by combining the eligible votes received on both Facebook and Instagram.
+                    </p>
+                  </div>
+                )}
+
+                {ruleTab === 'submission' && (
+                  <div className="animate-fade-in">
+                    <h4 className="font-sans text-xs sm:text-sm font-bold text-white mb-2 uppercase tracking-wide">General Submission Guidelines</h4>
+                    <ul className="space-y-1.5 list-disc pl-5 text-xs sm:text-sm text-gray-300">
+                      <li>All submissions must be created using AI design tools.</li>
+                      <li>MoraSpirit official logos must not be used in any submission.</li>
+                      <li>When using artists' images, ensure their faces remain clear, recognizable, and not distorted.</li>
+                      <li>Graphic submissions may be in any aspect ratio (square, portrait, landscape, etc.).</li>
+                      <li>Video submissions must not exceed <strong className="text-green-400">1 minute</strong> in duration.</li>
+                    </ul>
+                  </div>
+                )}
+
+                {ruleTab === 'general' && (
+                  <div className="animate-fade-in">
+                    <h4 className="font-sans text-xs sm:text-sm font-bold text-white mb-2 uppercase tracking-wide">General Rules</h4>
+                    <ul className="space-y-1.5 list-disc pl-5 text-xs sm:text-sm text-gray-300">
+                      <li>Participants and voters are expected to engage fairly. Any attempt to manipulate the voting process may result in disqualification.</li>
+                      <li>Votes obtained through bots, purchased engagements, engagement groups, or any other artificial means will not be considered.</li>
+                      <li>The organizing committee reserves the right to verify the authenticity of all interactions and determine their validity.</li>
+                      <li>In the event of any dispute, the decision of the organizing committee shall be final.</li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Iframe content */}
@@ -227,13 +302,14 @@ function App() {
                 </div>
               )}
               <iframe
-                src="https://script.google.com/macros/s/AKfycbxg1_kMNQz5CYUIyeyXinjTssEI7W_NldnqrTUbtY-1s2HRiC_VnVgfjqUa9II8xQeX/exec"
-                width="100%"
-                height="100%"
-                style={{ border: 'none' }}
-                title="Flyer Submission Form"
-                onLoad={() => setIframeLoading(false)}
-              />
+                    src="https://script.google.com/macros/s/AKfycbxg1_kMNQz5CYUIyeyXinjTssEI7W_NldnqrTUbtY-1s2HRiC_VnVgfjqUa9II8xQeX/exec"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 'none' }}
+                    title="Flyer Submission Form"
+                    onLoad={() => setIframeLoading(false)}
+                    sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin allow-popups"
+                  />
             </div>
           </div>
         </div>
