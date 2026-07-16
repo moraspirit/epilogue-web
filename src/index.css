@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 16px rgba(255, 0, 127, 0.45), 0 0 6px rgba(255, 0, 127, 0.25);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
 @layer utilities {
     .hero-bg {
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(249, 250, 251, 0.9)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDg5RVf7xiJnNIEIYa99jAgfMOqS7QaD3_tba_T9X7o4rPtNBpC2X6Ct1EJBNSQJb56-jFBRQF4y5xoQBd5qPDGBqMm21-974G4dw3SI5bgnhkdr0dKRdhDqq2xi134fSQRceybJJK9aGeoBgDfHxdECm5V5WgW3P5MfR1T2_P-fxVAf5pb4Ei3hlG6YuihmbX528lqua9cCmTlpylnQHy_ZvvWKROF3vvJh9aoFPTtP9CAvMMCTmGY15Ur9UkP1kRl7NWZ7gpmBDo');

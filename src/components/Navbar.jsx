@@ -50,11 +50,25 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
                 e.preventDefault();
                 onBuyTickets();
               }}
-              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed px-4 sm:px-6 py-2.5 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center gap-1.5 sm:gap-2"
+              className="bg-green-700 dark:bg-primary-container text-white dark:text-on-primary-fixed w-[110px] sm:w-[165px] h-[32px] sm:h-[42px] rounded font-sans text-[10px] sm:text-sm font-bold tracking-wide hover:shadow-[0_0_20px_rgba(34,255,68,0.4)] hover:scale-105 transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2"
             >
-              <svg className="hidden sm:block w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+              <svg className="hidden sm:block w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
               <span>BUY TICKETS</span>
             </button>
+
+            <a
+              href="https://www.ticketsministry.com/concerts/epilogue26/6a58ae6f4e923"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative bg-white hover:bg-gray-50 border border-gray-100 w-[110px] sm:w-[165px] h-[32px] sm:h-[42px] rounded flex items-center justify-center gap-1 sm:gap-2 group transition-all duration-300 shadow-sm animate-breathe text-[10px] sm:text-sm font-bold font-sans text-gray-700"
+            >
+              <img 
+                src={`${import.meta.env.BASE_URL}koko-clean.png`} 
+                alt="Koko" 
+                className="h-2.5 sm:h-4 w-auto object-contain z-10" 
+              />
+              <span className="font-sans text-[10px] sm:text-sm font-bold tracking-wide text-gray-700">PAY LATER</span>
+            </a>
             
             {/* Hamburger Button for Mobile */}
             <button
@@ -135,6 +149,21 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
             <span>BUY TICKETS</span>
           </button>
+
+          <a 
+            href="https://www.ticketsministry.com/concerts/epilogue26/6a58ae6f4e923"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="relative w-full mt-2 bg-white hover:bg-gray-50 border border-gray-200 py-3 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-sm animate-breathe group text-sm font-bold font-sans text-gray-700"
+          >
+            <img 
+              src={`${import.meta.env.BASE_URL}koko-clean.png`} 
+              alt="Koko Logo" 
+              className="h-4 w-auto object-contain z-10" 
+            />
+            <span className="font-sans text-[11px] font-black tracking-wider uppercase text-gray-700">PAY LATER</span>
+          </a>
         </div>
       </div>
     </>
