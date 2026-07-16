@@ -195,7 +195,7 @@ function App() {
             {/* Title / Header */}
             <div className="text-center pt-6 pb-2">
               <h2 className="font-sans text-xl sm:text-2xl font-black tracking-tight text-white dark:text-primary-fixed uppercase">
-                Most Popular AI Flyer Challenge
+                Most Popular AI Flyer & Video  Challenge
               </h2>
               <p className="text-xs text-green-500 font-mono tracking-widest uppercase mt-1">
                 EPILOGUE '26 COMPETITION
