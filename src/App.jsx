@@ -29,19 +29,18 @@ function App() {
 
 
 
-  const [flyerFormOpen, setFlyerFormOpen] = useState(false);
   const [showMobileBanner, setShowMobileBanner] = useState(true);
 
-  // Prevent background scroll when loading, mobile drawer, lightbox, or flyer modal is open
+  // Prevent background scroll when loading, mobile drawer, or lightbox is open
   useEffect(() => {
-    if ((loading && !splitLoader) || isMobileMenuOpen || lightboxOpen || flyerFormOpen) {
+    if ((loading && !splitLoader) || isMobileMenuOpen || lightboxOpen) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     }
-  }, [loading, splitLoader, isMobileMenuOpen, lightboxOpen, flyerFormOpen]);
+  }, [loading, splitLoader, isMobileMenuOpen, lightboxOpen]);
 
   // Force dark mode always
   useEffect(() => {
@@ -106,8 +105,9 @@ function App() {
     setLightboxOpen(false);
   }, []);
 
-  const [iframeLoading, setIframeLoading] = useState(true);
-  const [ruleTab, setRuleTab] = useState('fb');
+  const handleFlyerSubmission = useCallback(() => {
+    window.open('https://go.moraspirit.com/flyers-challange', '_blank');
+  }, []);
 
   return (
     <div className="overflow-x-clip w-full relative min-h-screen">
@@ -127,10 +127,7 @@ function App() {
         isMobileMenuOpen={isMobileMenuOpen} 
         setIsMobileMenuOpen={setIsMobileMenuOpen} 
         onBuyTickets={() => setTicketFormOpen(true)}
-        onFlyerSubmission={() => {
-          setIframeLoading(true);
-          setFlyerFormOpen(true);
-        }}
+        onFlyerSubmission={handleFlyerSubmission}
       />
 
       {/* ──── CINEMATIC HERO ──── */}
@@ -141,10 +138,7 @@ function App() {
         {/* ──── LINEUP SECTION ──── */}
         <Lineup 
           onBuyTickets={() => setTicketFormOpen(true)}
-          onFlyerSubmission={() => {
-            setIframeLoading(true);
-            setFlyerFormOpen(true);
-          }}
+          onFlyerSubmission={handleFlyerSubmission}
         />
       </div>
 
@@ -177,64 +171,10 @@ function App() {
         isOpen={ticketFormOpen} 
         onClose={() => setTicketFormOpen(false)} 
       />
-
-      {/* ──── FLYER SUBMISSION MODAL ──── */}
-      {flyerFormOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fade-in" onClick={() => setFlyerFormOpen(false)}>
-          <div 
-            className="relative w-full max-w-4xl glass-panel p-2 sm:p-4 rounded-3xl border border-primary-container/30 shadow-2xl scale-up-anim max-h-[95vh] overflow-y-auto hide-scrollbar bg-[#121414]/95 text-gray-200"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button 
-              onClick={() => setFlyerFormOpen(false)}
-              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition-colors z-[101]"
-              aria-label="Close form"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
-
-            {/* Title / Header */}
-
-
-            {/* Rules & Regulations Interactive Tabs */}
-
-
-            {/* Iframe content */}
-            <div className="relative w-full h-[75vh] min-h-[500px] overflow-hidden rounded-2xl border border-outline-variant/10 mt-4 bg-black/20">
-              {iframeLoading && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#121414]/90 z-50">
-                  <div className="w-12 h-12 border-4 border-green-700/20 border-t-green-500 rounded-full animate-spin mb-4"></div>
-                  <p className="text-xs text-green-400 font-mono tracking-widest animate-pulse uppercase">
-                    Loading Form...
-                  </p>
-                </div>
-              )}
-              <iframe
-                    src="https://script.google.com/macros/s/AKfycbyPEeJHZZ56aZXMhqXEwwtV2eo_6VUwZEzp_skwvwoVPUzKEgyTWNwgARkvueEbu7VU/exec"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 'none' }}
-                    title="Flyer Submission Form"
-                    onLoad={() => setIframeLoading(false)}
-                    sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin allow-popups"
-                  />
-            </div>
-            
-            {/* Fallback open link */}
-            <div className="text-center mt-3 mb-1">
-              <p className="text-gray-400 text-[13px] font-sans">
-                Form not loading? Try opening the page in a <span className="text-green-400 dark:text-primary-container font-bold">new incognito window/tab</span>.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Mobile Sticky Flyer Challenge Banner */}
-      {showMobileBanner && !flyerFormOpen && (
+      {showMobileBanner && (
         <div className="sm:hidden fixed bottom-0 left-0 w-full z-[80] p-3.5 bg-[#0a0c0c]/95 backdrop-blur-md border-t border-green-500/20 shadow-[0_-4px_20px_rgba(0,0,0,0.5)] flex items-center justify-between gap-3 animate-slide-up">
-          <div className="flex items-center gap-2.5 min-w-0 flex-1" onClick={() => { setIframeLoading(true); setFlyerFormOpen(true); }}>
+          <div className="flex items-center gap-2.5 min-w-0 flex-1" onClick={handleFlyerSubmission}>
             <div className="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center border border-green-500/20 shrink-0">
               <span className="text-lg">🏆</span>
             </div>
@@ -245,7 +185,7 @@ function App() {
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <button
-              onClick={() => { setIframeLoading(true); setFlyerFormOpen(true); }}
+              onClick={handleFlyerSubmission}
               className="px-3.5 py-1.5 bg-green-700 text-white text-[11px] font-bold uppercase tracking-wider rounded-lg shadow-[0_0_10px_rgba(34,197,94,0.3)] animate-pulse"
             >
               Join
