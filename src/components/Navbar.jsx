@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import EarlyBirdOfferBanner from './EarlyBirdOfferBanner';
 
 export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets, onFlyerSubmission }) {
   const [scrolled, setScrolled] = useState(false);
@@ -10,9 +11,12 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
   }, []);
 
   return (
-    <>
+    <header className="fixed top-0 w-full z-50">
+      {/* ──── TOP ANNOUNCEMENT BANNER ──── */}
+      <EarlyBirdOfferBanner onReserve={onBuyTickets} />
+
       {/* ──── TOP NAVIGATION ──── */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`}>
+      <nav className={`w-full transition-all duration-500 ${scrolled ? 'bg-white/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center px-4 md:px-gutter py-4 max-w-container-max mx-auto">
           <div className="cursor-pointer flex items-center" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }}>
             <img 
@@ -175,6 +179,6 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
           </a>
         </div>
       </div>
-    </>
+    </header>
   );
 }
