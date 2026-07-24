@@ -45,7 +45,7 @@ export default function TicketForm({ isOpen, onClose }) {
       if (name === 'batch') {
         if (value === 'Alumni') {
           updated.ticket_type = 'Alumni';
-          updated.num_bundles = 0;
+          updated.num_early_bird_bundle = 0;
         } else if (prev.batch === 'Alumni') {
           updated.ticket_type = 'Standard';
         }
@@ -343,37 +343,6 @@ export default function TicketForm({ isOpen, onClose }) {
               <label className="block text-xs font-semibold text-gray-400 tracking-wider uppercase mb-3">Choose Tickets *</label>
               <div className="space-y-3">
 
-                {/* Standard Bundle — max 1, hidden for Alumni */}
-                {formData.batch !== 'Alumni' && (
-                  <div className="bg-gradient-to-r from-green-900/40 to-[#1e2020] border border-green-500/30 p-4 rounded-2xl flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] font-bold tracking-widest text-green-400 uppercase">Special Offer</span>
-                      <h4 className="text-md font-bold text-white mt-0.5">Standard Bundle (5 Tickets)</h4>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-sm font-black text-gray-500 line-through">Rs. 7000.00</span>
-                        <span className="text-sm font-black text-green-400">Rs. 6500.00</span>
-                      </div>
-                      <p className="text-[10px] text-gray-400 mt-1">Save Rs. 500! · Max 1 per booking</p>
-                    </div>
-                    <div className="flex items-center bg-[#1a1d1d] border border-white/5 rounded-xl px-2 py-1.5">
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.max(0, Number(prev.num_bundles) - 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
-                      </button>
-                      <span className="text-sm font-bold text-white w-8 text-center">{formData.num_bundles || 0}</span>
-                      <button 
-                        type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_bundles: Math.min(1, Number(prev.num_bundles) + 1) }))}
-                        className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
-                      </button>
-                    </div>
-                  </div>
-                )}
 
                 {/* Standard Ticket Row — always visible */}
                 <div className={`flex items-center justify-between bg-[#1e2020] border border-white/5 p-4 rounded-2xl ${formData.batch === 'Alumni' ? 'opacity-40 pointer-events-none' : ''}`}>
