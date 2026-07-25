@@ -401,19 +401,19 @@ export default function TicketForm({ isOpen, onClose }) {
                   <div className="absolute top-0 right-0 bg-gradient-to-l from-green-500 to-emerald-600 text-black text-[9px] font-black tracking-wider uppercase px-3 py-0.5 rounded-bl-xl shadow-md">
                     SAVE RS. 500
                   </div>
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <span className="text-[10px] font-extrabold tracking-widest text-emerald-400 uppercase flex items-center gap-1">
-                        🔥 GENERAL STANDARD BUNDLE (5 TICKETS)
+                  <div className="flex items-start sm:items-center justify-between gap-2">
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[10px] font-extrabold tracking-widest text-emerald-400 uppercase flex flex-wrap items-center gap-1 leading-tight">
+                        <span>🔥 GENERAL STANDARD BUNDLE</span> <span className="opacity-80">(5 TICKETS)</span>
                       </span>
-                      <h4 className="text-md font-bold text-white mt-0.5">General Standard Bundle</h4>
-                      <div className="flex items-center gap-2 mt-0.5">
+                      <h4 className="text-md font-bold text-white mt-0.5 leading-tight">General Standard Bundle</h4>
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
                         <span className="text-sm font-black text-green-400">Rs. 6,500.00</span>
                         <span className="text-xs text-gray-500 line-through">Rs. 7,000.00</span>
-                        <span className="text-[10px] text-emerald-300/80 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">Rs. 1,300/tix</span>
+                        <span className="text-[10px] text-emerald-300/80 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded whitespace-nowrap">Rs. 1,300/tix</span>
                       </div>
                     </div>
-                    <div className="flex items-center bg-[#1a1d1d] border border-green-500/20 rounded-xl px-2 py-1.5">
+                    <div className="flex items-center bg-[#1a1d1d] border border-green-500/20 rounded-xl px-2 py-1.5 shrink-0 mt-1 sm:mt-0">
                       <button 
                         type="button" 
                         onClick={() => setFormData(prev => ({ ...prev, num_standard_bundle: Math.max(0, Number(prev.num_standard_bundle) - 1) }))}
