@@ -1,6 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function StandardBundleOfferAd({ onReserve }) {
+  const [timeLeft, setTimeLeft] = useState('');
+  const [offerEnded, setOfferEnded] = useState(false);
+
+  useEffect(() => {
+    const targetDate = new Date('2026-07-26T23:59:59').getTime();
+    
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        setOfferEnded(true);
+        setTimeLeft('OFFER ENDED');
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        const dStr = days > 0 ? `${days}d ` : '';
+        setTimeLeft(`${dStr}${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`);
+      }
+    };
+    
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="w-full relative z-30 py-16 bg-[#0a0c0c] overflow-hidden border-t border-b border-green-500/20">
       {/* Ambient background glows */}
@@ -10,8 +39,15 @@ export default function StandardBundleOfferAd({ onReserve }) {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 bg-[#121515]/90 backdrop-blur-xl border border-emerald-500/30 p-6 sm:p-10 rounded-[2.5rem] shadow-[0_0_50px_rgba(16,185,129,0.15)] relative overflow-hidden">
           
           {/* Decorative accents */}
-          <div className="absolute top-0 right-0 bg-gradient-to-l from-green-500 to-emerald-600 text-black text-xs font-black tracking-widest uppercase px-6 py-1.5 rounded-bl-2xl shadow-lg">
-            LIMITED TIME OFFER
+          <div className="absolute top-0 right-0 bg-gradient-to-l from-green-500 to-emerald-600 text-black text-xs font-black tracking-widest uppercase px-6 py-1.5 rounded-bl-2xl shadow-lg flex items-center gap-2">
+            {offerEnded ? (
+              <span>OFFER EXPIRED</span>
+            ) : (
+              <>
+                <span className="animate-pulse">⏳</span>
+                <span>ENDS IN: {timeLeft}</span>
+              </>
+            )}
           </div>
 
           {/* Left Column: Official Flyer Image */}
@@ -19,7 +55,7 @@ export default function StandardBundleOfferAd({ onReserve }) {
             <img
               src={`${import.meta.env.BASE_URL}early_bird_premium_bundle.jpeg`}
               alt="General Standard Bundle Offer"
-              className="w-full max-w-sm lg:max-w-md h-auto rounded-2xl shadow-[0_0_35px_rgba(16,185,129,0.25)] object-contain border border-emerald-500/30 transition-transform duration-300 hover:scale-[1.02]"
+              className={`w-full max-w-sm lg:max-w-md h-auto rounded-2xl shadow-[0_0_35px_rgba(16,185,129,0.25)] object-contain border border-emerald-500/30 transition-transform duration-300 ${offerEnded ? 'grayscale opacity-70' : 'hover:scale-[1.02]'}`}
             />
           </div>
 
@@ -51,13 +87,22 @@ export default function StandardBundleOfferAd({ onReserve }) {
             </ul>
 
             <div className="mt-8 pt-6 border-t border-white/10">
-              <button
-                onClick={onReserve}
-                className="w-full bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-500 hover:to-emerald-500 text-white font-black text-base sm:text-lg uppercase py-4 px-8 rounded-2xl transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-3"
-              >
-                <span>RESERVE STANDARD BUNDLE</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </button>
+              {offerEnded ? (
+                <button
+                  disabled
+                  className="w-full bg-gray-800 text-gray-400 font-black text-base sm:text-lg uppercase py-4 px-8 rounded-2xl cursor-not-allowed flex items-center justify-center gap-3"
+                >
+                  <span>OFFER ENDED</span>
+                </button>
+              ) : (
+                <button
+                  onClick={onReserve}
+                  className="w-full bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-500 hover:to-emerald-500 text-white font-black text-base sm:text-lg uppercase py-4 px-8 rounded-2xl transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-3"
+                >
+                  <span>RESERVE STANDARD BUNDLE</span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              )}
             </div>
           </div>
 
