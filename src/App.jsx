@@ -9,8 +9,7 @@ import Organizer from './components/Organizer';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
 import TicketForm from './components/TicketForm';
-import EarlyBirdOfferBanner from './components/EarlyBirdOfferBanner';
-import EarlyBirdBundleOfferAd from './components/EarlyBirdBundleOfferAd';
+import StandardBundleOfferAd from './components/StandardBundleOfferAd';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -145,7 +144,7 @@ function App() {
       </div>
 
       {/* ──── EARLY BIRD BUNDLE OFFER AD SECTION ──── */}
-      <EarlyBirdBundleOfferAd onReserve={() => setTicketFormOpen(true)} />
+      <StandardBundleOfferAd onReserve={() => setTicketFormOpen(true)} />
 
       {/* ──── GALLERY SECTION ──── */}
       <Gallery 

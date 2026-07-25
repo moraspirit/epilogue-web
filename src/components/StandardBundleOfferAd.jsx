@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function EarlyBirdBundleOfferAd({ onReserve }) {
+export default function StandardBundleOfferAd({ onReserve }) {
   return (
     <section className="w-full relative z-30 py-16 bg-[#0a0c0c] overflow-hidden border-t border-b border-green-500/20">
       {/* Ambient background glows */}
@@ -18,7 +18,7 @@ export default function EarlyBirdBundleOfferAd({ onReserve }) {
           <div className="w-full lg:w-1/2 flex justify-center relative z-10">
             <img
               src={`${import.meta.env.BASE_URL}early_bird_premium_bundle.jpeg`}
-              alt="Early Bird Premium Bundle Offer"
+              alt="General Standard Bundle Offer"
               className="w-full max-w-sm lg:max-w-md h-auto rounded-2xl shadow-[0_0_35px_rgba(16,185,129,0.25)] object-contain border border-emerald-500/30 transition-transform duration-300 hover:scale-[1.02]"
             />
           </div>
@@ -55,7 +55,7 @@ export default function EarlyBirdBundleOfferAd({ onReserve }) {
                 onClick={onReserve}
                 className="w-full bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 hover:from-green-500 hover:to-emerald-500 text-white font-black text-base sm:text-lg uppercase py-4 px-8 rounded-2xl transition-all shadow-[0_0_25px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 flex items-center justify-center gap-3"
               >
-                <span>RESERVE EARLY BIRD BUNDLE</span>
+                <span>RESERVE STANDARD BUNDLE</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
             </div>

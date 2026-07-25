@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import EarlyBirdOfferBanner from './EarlyBirdOfferBanner';
+import StandardBundleOfferBanner from './StandardBundleOfferBanner';
 
 export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets, onFlyerSubmission }) {
   const [scrolled, setScrolled] = useState(false);
@@ -13,7 +13,7 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
   return (
     <header className="fixed top-0 w-full z-50">
       {/* ──── TOP ANNOUNCEMENT BANNER ──── */}
-      <EarlyBirdOfferBanner onReserve={onBuyTickets} />
+      <StandardBundleOfferBanner onReserve={onBuyTickets} />
 
       {/* ──── TOP NAVIGATION ──── */}
       <nav className={`w-full transition-all duration-500 ${scrolled ? 'bg-white/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/20' : 'bg-transparent'}`}>

@@ -12,7 +12,7 @@ export default function TicketForm({ isOpen, onClose }) {
     ticket_type: 'Standard',
     num_standard: 0,
     num_premium: 0,
-    num_early_bird_bundle: 0,
+    num_standard_bundle: 0,
     num_alumni: 1,
   });
 
@@ -45,7 +45,7 @@ export default function TicketForm({ isOpen, onClose }) {
       if (name === 'batch') {
         if (value === 'Alumni') {
           updated.ticket_type = 'Alumni';
-          updated.num_early_bird_bundle = 0;
+          updated.num_standard_bundle = 0;
         } else if (prev.batch === 'Alumni') {
           updated.ticket_type = 'Standard';
         }
@@ -104,7 +104,7 @@ export default function TicketForm({ isOpen, onClose }) {
     }
     const standard = parseInt(formData.num_standard, 10) || 0;
     const premium = parseInt(formData.num_premium, 10) || 0;
-    const earlyBirdBundle = parseInt(formData.num_early_bird_bundle, 10) || 0;
+    const earlyBirdBundle = parseInt(formData.num_standard_bundle, 10) || 0;
     return (standard * 1400) + (premium * 1800) + (earlyBirdBundle * 6500);
   };
 
@@ -138,12 +138,12 @@ export default function TicketForm({ isOpen, onClose }) {
     } else {
       const stdCount = Number(formData.num_standard) || 0;
       const prmCount = Number(formData.num_premium) || 0;
-      const bundleCount = Number(formData.num_early_bird_bundle) || 0;
+      const bundleCount = Number(formData.num_standard_bundle) || 0;
       
       final_num_tickets = (stdCount * 1) + (prmCount * 1) + (bundleCount * 5);
       
       const types = [];
-      if (bundleCount > 0) types.push('Early Bird Premium Bundle');
+      if (bundleCount > 0) types.push('General Standard Bundle');
       if (stdCount > 0) types.push('General - Standard');
       if (prmCount > 0) types.push('General - Premium');
       
@@ -164,7 +164,7 @@ export default function TicketForm({ isOpen, onClose }) {
     try {
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
-        if (!['num_standard', 'num_premium', 'num_early_bird_bundle', 'num_bundles', 'num_alumni', 'ticket_type', 'num_tickets'].includes(key)) {
+        if (!['num_standard', 'num_premium', 'num_standard_bundle', 'num_bundles', 'num_alumni', 'ticket_type', 'num_tickets'].includes(key)) {
           data.append(key, formData[key]);
         }
       });
@@ -198,7 +198,7 @@ export default function TicketForm({ isOpen, onClose }) {
         ticket_type: 'Standard',
         num_standard: 0,
         num_premium: 0,
-        num_early_bird_bundle: 0,
+        num_standard_bundle: 0,
         num_alumni: 1,
       });
       setPaymentSlip(null);
@@ -396,7 +396,7 @@ export default function TicketForm({ isOpen, onClose }) {
                   </div>
                 </div>
 
-                {/* Early Bird Premium Bundle Row — always visible for Undergrads */}
+                {/* General Standard Bundle Row — always visible for Undergrads */}
                 <div className={`relative overflow-hidden bg-gradient-to-r from-emerald-950/40 via-[#1e2020] to-green-950/30 border border-green-500/30 p-4 rounded-2xl transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)] ${formData.batch === 'Alumni' ? 'opacity-40 pointer-events-none' : ''}`}>
                   <div className="absolute top-0 right-0 bg-gradient-to-l from-green-500 to-emerald-600 text-black text-[9px] font-black tracking-wider uppercase px-3 py-0.5 rounded-bl-xl shadow-md">
                     SAVE RS. 500
@@ -404,9 +404,9 @@ export default function TicketForm({ isOpen, onClose }) {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <span className="text-[10px] font-extrabold tracking-widest text-emerald-400 uppercase flex items-center gap-1">
-                        🔥 EARLY BIRD BUNDLE (5 TICKETS)
+                        🔥 GENERAL STANDARD BUNDLE (5 TICKETS)
                       </span>
-                      <h4 className="text-md font-bold text-white mt-0.5">Early Bird Premium Bundle</h4>
+                      <h4 className="text-md font-bold text-white mt-0.5">General Standard Bundle</h4>
                       <div className="flex items-center gap-2 mt-0.5">
                         <span className="text-sm font-black text-green-400">Rs. 6,500.00</span>
                         <span className="text-xs text-gray-500 line-through">Rs. 7,000.00</span>
@@ -416,15 +416,15 @@ export default function TicketForm({ isOpen, onClose }) {
                     <div className="flex items-center bg-[#1a1d1d] border border-green-500/20 rounded-xl px-2 py-1.5">
                       <button 
                         type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_early_bird_bundle: Math.max(0, Number(prev.num_early_bird_bundle) - 1) }))}
+                        onClick={() => setFormData(prev => ({ ...prev, num_standard_bundle: Math.max(0, Number(prev.num_standard_bundle) - 1) }))}
                         className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"/></svg>
                       </button>
-                      <span className="text-sm font-bold text-emerald-400 w-8 text-center">{formData.num_early_bird_bundle || 0}</span>
+                      <span className="text-sm font-bold text-emerald-400 w-8 text-center">{formData.num_standard_bundle || 0}</span>
                       <button 
                         type="button" 
-                        onClick={() => setFormData(prev => ({ ...prev, num_early_bird_bundle: Math.min(5, Number(prev.num_early_bird_bundle) + 1) }))}
+                        onClick={() => setFormData(prev => ({ ...prev, num_standard_bundle: Math.min(5, Number(prev.num_standard_bundle) + 1) }))}
                         className="text-gray-400 hover:text-white p-1 hover:bg-white/5 rounded"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
