@@ -174,7 +174,7 @@ export default function Hero() {
                   {/* Cutout Image of Band Members with 3D Parallax */}
                   <img
                     ref={bandRef}
-                    src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
+                    src={`${import.meta.env.BASE_URL}band/full_artist.avif`}
                     alt="Daddy Band Members"
                     onLoad={() => setBandImageLoaded(true)}
                     className="relative max-h-[80vh] md:max-h-[85vh] object-contain w-auto right-0 lg:right-[2%] bottom-[-5%] transition-transform duration-300 ease-out drop-shadow-[0_20px_50px_rgba(34,255,68,0.15)] filter saturate-[1.1]"
@@ -249,7 +249,7 @@ export default function Hero() {
                     <div className="relative max-w-[320px] sm:max-w-[380px] w-full">
                       <div className="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-cyan-500/10 rounded-full blur-[60px]" />
                       <img
-                        src={`${import.meta.env.BASE_URL}band/bns_cutout.webp`}
+                        src={`${import.meta.env.BASE_URL}band/full_artist.avif`}
                         alt="Daddy Band Members"
                         className="relative max-h-[35vh] sm:max-h-[40vh] object-contain mx-auto drop-shadow-[0_15px_30px_rgba(34,255,68,0.2)] filter saturate-[1.1]"
                         style={{
