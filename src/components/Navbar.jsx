@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import StandardBundleOfferBanner from './StandardBundleOfferBanner';
 
-export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets, onFlyerSubmission }) {
+export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTickets }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -37,18 +37,6 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
             <a className="font-sans text-sm md:text-base font-semibold tracking-wide text-gray-700 dark:text-gray-200 hover:text-green-700 dark:hover:text-primary-container transition-colors" href="#organizer">About Us</a>
           </div>
           <div className="flex gap-3 items-center">
-              {/* Hiding Flyer Submission button for now */}
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  onFlyerSubmission();
-                }}
-                className="hidden lg:flex border border-green-700 dark:border-primary-container text-green-700 dark:text-primary-container px-4 py-2 rounded font-sans text-xs sm:text-sm font-bold tracking-wide hover:bg-green-700/10 dark:hover:bg-primary-container/10 transition-all duration-300 items-center gap-1.5"
-              >
-                <span>FLYER CHALLENGE</span>
-              </button>
-             
-
             <button 
               onClick={(e) => {
                 e.preventDefault();
@@ -130,27 +118,6 @@ export default function Navbar({ isMobileMenuOpen, setIsMobileMenuOpen, onBuyTic
           >
             About Us
           </a>
-
-          {/* Mobile Drawer Banner instead of button */}
-          <div 
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              onFlyerSubmission();
-            }}
-            className="w-full mt-4 bg-gradient-to-br from-green-950 via-[#161a1a] to-emerald-950 border border-green-500/30 p-4 rounded-xl flex flex-col items-center justify-center shadow-[0_0_15px_rgba(34,197,94,0.1)] cursor-pointer hover:border-green-500/50 transition-all duration-300 relative overflow-hidden group animate-breathe"
-          >
-            <span className="bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded-full text-[9px] font-bold text-green-400 tracking-wider uppercase mb-1">
-              🏆 AI Flyer Challenge
-            </span>
-            <h4 className="text-white text-xs font-bold text-center">
-              Submit & Win Exciting Prizes!
-            </h4>
-            <span className="mt-2 inline-flex items-center gap-1 text-[10px] font-bold text-green-400">
-              Join Now
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-         
 
           <button 
             onClick={() => {
