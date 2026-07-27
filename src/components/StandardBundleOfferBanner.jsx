@@ -5,7 +5,7 @@ export default function StandardBundleOfferBanner({ onReserve }) {
   const [offerEnded, setOfferEnded] = useState(false);
 
   useEffect(() => {
-    const targetDate = new Date('2026-07-26T23:59:59').getTime();
+    const targetDate = new Date('2026-07-28T23:59:59').getTime();
     
     const updateCountdown = () => {
       const now = new Date().getTime();
