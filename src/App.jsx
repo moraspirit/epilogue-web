@@ -9,7 +9,6 @@ import Organizer from './components/Organizer';
 import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
 import TicketForm from './components/TicketForm';
-import StandardBundleOfferAd from './components/StandardBundleOfferAd';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -133,9 +132,6 @@ function App() {
           onBuyTickets={() => setTicketFormOpen(true)}
         />
       </div>
-
-      {/* ──── EARLY BIRD BUNDLE OFFER AD SECTION ──── */}
-      <StandardBundleOfferAd onReserve={() => setTicketFormOpen(true)} />
 
       {/* ──── GALLERY SECTION ──── */}
       <Gallery 
